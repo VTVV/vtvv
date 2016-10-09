@@ -19,3 +19,13 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Ignore idea files
+.idea
+
+# Ignore dump.rdb
+dump.rdb
+
+# Ignore common files
+/config/database.yml
+/config/secrets.yml
