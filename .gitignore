@@ -29,3 +29,11 @@ dump.rdb
 # Ignore common files
 /config/database.yml
 /config/secrets.yml
+
+.DS_Store
+app/.DS_Store
+app/assets/.DS_Store
+app/assets/images/.DS_Store
+vendor/.DS_Store
+vendor/assets/.DS_Store
+vendor/assets/javascripts/.DS_Store
