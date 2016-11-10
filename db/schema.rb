@@ -10,10 +10,63 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161009140451) do
+ActiveRecord::Schema.define(version: 20161110160212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "type"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_accounts_on_user_id", using: :btree
+  end
+
+  create_table "borrower_requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.decimal  "amount"
+    t.datetime "due_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_borrower_requests_on_user_id", using: :btree
+  end
+
+  create_table "credit_scores", force: :cascade do |t|
+    t.integer  "user_id"
+    t.decimal  "score"
+    t.integer  "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_credit_scores_on_user_id", using: :btree
+  end
+
+  create_table "investor_requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.decimal  "amount"
+    t.decimal  "from_rate"
+    t.decimal  "to_rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_investor_requests_on_user_id", using: :btree
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "borrower_id"
+    t.integer  "inverstor_id"
+    t.integer  "type"
+    t.decimal  "amount"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -32,4 +85,8 @@ ActiveRecord::Schema.define(version: 20161009140451) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "accounts", "users"
+  add_foreign_key "borrower_requests", "users"
+  add_foreign_key "credit_scores", "users"
+  add_foreign_key "investor_requests", "users"
 end
