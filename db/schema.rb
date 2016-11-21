@@ -10,18 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161110160212) do
+ActiveRecord::Schema.define(version: 20161120213504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "type"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "account_type"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.index ["user_id"], name: "index_accounts_on_user_id", using: :btree
   end
 
@@ -32,6 +30,13 @@ ActiveRecord::Schema.define(version: 20161110160212) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_borrower_requests_on_user_id", using: :btree
+  end
+
+  create_table "credit_histories", force: :cascade do |t|
+    t.integer  "number"
+    t.float    "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "credit_scores", force: :cascade do |t|
@@ -51,6 +56,28 @@ ActiveRecord::Schema.define(version: 20161110160212) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_investor_requests_on_user_id", using: :btree
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "sex"
+    t.string   "home_phone"
+    t.string   "mobile_phone"
+    t.string   "company_name"
+    t.string   "job_position"
+    t.string   "nationality"
+    t.string   "credit_number"
+    t.string   "address"
+    t.string   "passport"
+    t.decimal  "salary"
+    t.string   "salary_document"
+    t.integer  "family_status"
+    t.date     "birth_date"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id", using: :btree
   end
 
   create_table "roles", force: :cascade do |t|
@@ -89,4 +116,5 @@ ActiveRecord::Schema.define(version: 20161110160212) do
   add_foreign_key "borrower_requests", "users"
   add_foreign_key "credit_scores", "users"
   add_foreign_key "investor_requests", "users"
+  add_foreign_key "profiles", "users"
 end

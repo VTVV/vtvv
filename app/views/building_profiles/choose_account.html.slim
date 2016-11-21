@@ -1,0 +1,17 @@
+h2 Choose account type
+= form_for @user, url: wizard_path, method: :put do |f|
+  .row
+    .col-xs-10
+      .row
+        .col-xs-1
+          span Borrower
+        .col-xs-4
+          = f.radio_button :account_type, Account.account_types[:borrower]
+      .row
+        .col-xs-1
+          span Investor
+        .col-xs-4
+          = f.radio_button :account_type, Account.account_types[:investor]
+      .row
+        .col-xs-6
+          = f.submit 'Next Step', class: 'btn btn-success'

@@ -1,0 +1,2 @@
+class CreditHistory < ApplicationRecord
+end
