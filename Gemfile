@@ -31,6 +31,10 @@ gem 'devise'
 
 gem 'font-awesome-rails'
 
+gem 'wicked'
+
+gem 'slim-rails'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
