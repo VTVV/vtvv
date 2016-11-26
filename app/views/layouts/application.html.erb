@@ -29,6 +29,9 @@
           </li>
           <% if current_user %>
               <li class="page-scroll">
+                <%= link_to 'Profile', profile_path %>
+              </li>
+              <li class="page-scroll">
                 <%= link_to 'Sing out', destroy_user_session_path, method: :delete  %>
               </li>
           <% else %>
