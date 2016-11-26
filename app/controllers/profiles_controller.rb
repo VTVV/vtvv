@@ -1,9 +1,6 @@
 class ProfilesController < ApplicationController
   include ProfileData
-  before_action :set_profile 
-  
-  def show
-  end
+  include SetProfile 
 
   def edit
   end
@@ -14,11 +11,5 @@ class ProfilesController < ApplicationController
     else
       render :edit
     end
-  end
-
-  private
-
-  def set_profile
-    @profile = current_user.try(:profile) || Profile.new
   end
 end

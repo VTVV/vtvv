@@ -10,6 +10,27 @@ Rails.application.routes.draw do
   }
 
   resources :building_profiles
-  resource :profile, only: [:show, :edit, :update]
+  resource :profile, only: [:edit, :update]
+
+  namespace :borrower do
+  	resource :dashboard, only: [:show]
+  end
+
+  namespace :investor do
+  	resource :dashboard, only: [:show]
+  end
+
+  namespace :admin do
+  	resource :dashboard, only: [:show]
+  end
+
+  namespace :underwriter do
+  	resource :dashboard, only: [:show]
+  end
+
+  namespace :support do
+  	resource :dashboard, only: [:show]
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
