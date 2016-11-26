@@ -18,7 +18,7 @@
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
           <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
         </button>
-        <a class="navbar-brand" href="#page-top">Gold Financial</a>
+        <a class="navbar-brand" href="/">Gold Financial</a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -28,6 +28,11 @@
             <a href="#page-top"></a>
           </li>
           <% if current_user %>
+              <% if current_user.account %>
+                <li class="page-scroll">
+                  <%= link_to 'Dashboard', self.send(current_user.account.account_type + '_dashboard_path') %>
+                </li>
+              <% end %>
               <li class="page-scroll">
                 <%= link_to 'Sing out', destroy_user_session_path, method: :delete  %>
               </li>

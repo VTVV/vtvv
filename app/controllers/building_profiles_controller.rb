@@ -1,6 +1,7 @@
 class BuildingProfilesController < ApplicationController
 
   include Wicked::Wizard
+  include ProfileData
 
   steps :choose_account, :build_profile
 
@@ -31,22 +32,6 @@ class BuildingProfilesController < ApplicationController
     end
     sign_in(@user, bypass: true)
     render_wizard @user
-  end
-
-  def profile_params
-    params.require(:profile).permit(:first_name,
-                                    :last_name,
-                                    :sex,
-                                    :home_phone,
-                                    :mobile_phone,
-                                    :company_name,
-                                    :job_position,
-                                    :nationality,
-                                    :credit_number,
-                                    :address,
-                                    :salary,
-                                    :family_status,
-                                    :birth_date)
   end
 
   def finish_wizard_path
