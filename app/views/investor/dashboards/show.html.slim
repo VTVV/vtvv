@@ -1,0 +1,18 @@
+.row
+  .col-xs-offset-1.col-xs-10
+    table.table
+      tr
+        th Name
+        th Email
+        th Amount
+        th Created at
+      - @borrower_requests.each do |b|
+        tr
+          td
+            = "#{b.user.profile.first_name} #{b.user.profile.last_name}"
+          td
+            = b.user.email
+          td
+            = b.amount
+          td 
+            = b.created_at
