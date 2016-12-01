@@ -1,5 +1,5 @@
 class Admin::DashboardsController < Admin::ApplicationController
 	def show
-		@users = User.includes(:account, :profile).all
+		@users = User.includes(:accounts, :profile).all
 	end
 end

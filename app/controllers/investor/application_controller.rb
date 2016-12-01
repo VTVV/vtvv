@@ -5,7 +5,7 @@ class Investor::ApplicationController < ApplicationController
   private
 
     def authorize_user
-      unless current_user.present? && current_user.account.investor?
+      unless current_user.present? && current_user.accounts.investor?
         redirect_back(fallback_location: root_path)
       end
     end

@@ -6,7 +6,6 @@ class User < ApplicationRecord
 
   attr_accessor :account_type
 
-  has_one :account
+  has_many :accounts
   has_one :profile
-  has_one :credit_score
 end

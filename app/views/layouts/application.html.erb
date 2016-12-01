@@ -28,9 +28,9 @@
             <a href="#page-top"></a>
           </li>
           <% if current_user %>
-              <% if current_user.account %>
+              <% if current_user.accounts %>
                 <li class="page-scroll">
-                  <%= link_to 'Dashboard', self.send(current_user.account.account_type + '_dashboard_path') %>
+                  <%= link_to 'Dashboard', self.send(current_user.accounts.first.account_type + '_dashboard_path') %>
                 </li>
               <% end %>
               <li class="page-scroll">
