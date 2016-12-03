@@ -17,4 +17,7 @@
 //= require sb-admin-2
 //= require morris.min
 //= require metisMenu.min
+//= require jquery.dataTables.min
+//= require dataTables.bootstrap.min
+//= require dataTables.responsive
 //= require_tree .

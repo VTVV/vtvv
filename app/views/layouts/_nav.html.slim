@@ -126,7 +126,7 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
           i.fa.fa-user.fa-fw
           i.fa.fa-caret-down
         ul.dropdown-menu.dropdown-user
-          - if current_user.accounts.present?
+          - if current_account
             li
               = link_to self.send("#{current_user.accounts.first.account_type}_dashboard_path") do
                 i.fa.fa-user.fa-fw
@@ -153,18 +153,30 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
               span.input-group-btn
                 button.btn.btn-default type="button"
                   i.fa.fa-search
-          - if current_user.accounts.present?
+          - if current_account
             li
               = link_to self.send("#{current_user.accounts.first.account_type}_dashboard_path") do
                 i.fa.fa-dashboard.fa-fw
                 | Dashboard
-          li
-            a href="#"
-              i.fa.fa-bar-chart-o.fa-fw
-              | Charts
-              span.fa.arrow
-            ul.nav.nav-second-level
-              li
-                a href="flot.html"  Flot Charts
-              li
-                a href="morris.html"  Morris.js Charts
+          - if current_account and current_account.borrower?
+            li
+              a href="#"
+                i.fa.fa-bar-chart-o.fa-fw
+                | Credit Requests
+                span.fa.arrow
+              ul.nav.nav-second-level
+                li
+                  = link_to 'My requests', borrower_requests_path
+                li
+                  = link_to 'New credit request', new_borrower_request_path
+          - if current_account and current_account.investor?
+            li
+              a href="#"
+                i.fa.fa-bar-chart-o.fa-fw
+                | Investment Requests
+                span.fa.arrow
+              ul.nav.nav-second-level
+                li
+                  = link_to 'My requests', investor_requests_path
+                li
+                  = link_to 'New investment request', new_investor_request_path
