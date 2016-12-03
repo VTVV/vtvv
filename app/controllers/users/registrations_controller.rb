@@ -58,7 +58,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
 
-  def after_sign_up_path_for(resource)
+  def after_inactive_sign_up_path_for(resource)
     building_profile_path(:choose_account)
   end
 end
