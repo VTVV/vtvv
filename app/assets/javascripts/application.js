@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
-//= require freelancer
+//= require sb-admin-2
+//= require morris.min
+//= require metisMenu.min
 //= require_tree .
