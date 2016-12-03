@@ -5,7 +5,7 @@ class Borrower::ApplicationController < ApplicationController
   private
 
     def authorize_user
-      unless current_user.present? && current_user.accounts.first.borrower?
+      unless current_user.present? && current_user.account.borrower?
         redirect_back(fallback_location: root_path)
       end
     end

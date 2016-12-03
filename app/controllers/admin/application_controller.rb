@@ -5,7 +5,7 @@ class Admin::ApplicationController < ApplicationController
   private
 
     def authorize_user
-      unless current_user.present? && current_user.accounts.first.admin?
+      unless current_user.present? && current_user.account.admin?
         redirect_back(fallback_location: root_path)
       end
     end

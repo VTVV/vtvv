@@ -127,7 +127,7 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
           i.fa.fa-caret-down
         ul.dropdown-menu.dropdown-user
           li
-            a href="#"
+            = link_to self.send(current_user.account.account_type + '_dashboard_path') do
               i.fa.fa-user.fa-fw
               | User Profile
           li
@@ -153,7 +153,7 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
                 button.btn.btn-default type="button"
                   i.fa.fa-search
           li
-            a href="index.html"
+            = link_to self.send(current_user.account.account_type + '_dashboard_path') do
               i.fa.fa-dashboard.fa-fw
               | Dashboard
           li

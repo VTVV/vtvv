@@ -8,4 +8,8 @@ class User < ApplicationRecord
 
   has_many :accounts
   has_one :profile
+
+  def account
+    accounts.first
+  end
 end
