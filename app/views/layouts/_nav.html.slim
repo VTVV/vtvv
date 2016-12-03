@@ -136,32 +136,33 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
               | Settings
           li.divider
           li
-            a href="login.html"
-              i.fa.fa-sign-out.fa-fw
+            = link_to destroy_user_session_path, method: :delete do
+              i.fa.fa-sign-out.fa-fe
               | Logout
     - else
       li = link_to 'Sign in', new_user_session_path
       li = link_to 'Sign up', new_user_registration_path
-  .navbar-default.sidebar role="navigation"
-    .sidebar-nav.navbar-collapse
+  - if current_user
+    .navbar-default.sidebar role="navigation"
+      .sidebar-nav.navbar-collapse
       ul#side-menu.nav
-        li.sidebar-search
-          .input-group.custom-search-form
-            input.form-control placeholder="Search..." type="text" /
-            span.input-group-btn
-              button.btn.btn-default type="button"
-                i.fa.fa-search
-        li
-          a href="index.html"
-            i.fa.fa-dashboard.fa-fw
-            | Dashboard
-        li
-          a href="#"
-            i.fa.fa-bar-chart-o.fa-fw
-            | Charts
-            span.fa.arrow
-          ul.nav.nav-second-level
-            li
-              a href="flot.html"  Flot Charts
-            li
-              a href="morris.html"  Morris.js Charts
+          li.sidebar-search
+            .input-group.custom-search-form
+              input.form-control placeholder="Search..." type="text" /
+              span.input-group-btn
+                button.btn.btn-default type="button"
+                  i.fa.fa-search
+          li
+            a href="index.html"
+              i.fa.fa-dashboard.fa-fw
+              | Dashboard
+          li
+            a href="#"
+              i.fa.fa-bar-chart-o.fa-fw
+              | Charts
+              span.fa.arrow
+            ul.nav.nav-second-level
+              li
+                a href="flot.html"  Flot Charts
+              li
+                a href="morris.html"  Morris.js Charts
