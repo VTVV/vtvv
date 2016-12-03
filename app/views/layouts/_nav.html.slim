@@ -5,7 +5,7 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
       span.icon-bar
       span.icon-bar
       span.icon-bar
-    a.navbar-brand href="index.html"  Ardis
+    a.navbar-brand href="/"  Ardis
   /! /.navbar-header
   ul.nav.navbar-top-links.navbar-right
     - if current_user
@@ -126,10 +126,11 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
           i.fa.fa-user.fa-fw
           i.fa.fa-caret-down
         ul.dropdown-menu.dropdown-user
-          li
-            = link_to self.send(current_user.account.account_type + '_dashboard_path') do
-              i.fa.fa-user.fa-fw
-              | User Profile
+          - if current_account
+            li
+              = link_to self.send("#{current_user.accounts.first.account_type}_dashboard_path") do
+                i.fa.fa-user.fa-fw
+                | User Profile
           li
             a href="#"
               i.fa.fa-gear.fa-fw
@@ -152,11 +153,12 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
               span.input-group-btn
                 button.btn.btn-default type="button"
                   i.fa.fa-search
-          li
-            = link_to self.send(current_user.account.account_type + '_dashboard_path') do
-              i.fa.fa-dashboard.fa-fw
-              | Dashboard
-          - if current_account.borrower?
+          - if current_account
+            li
+              = link_to self.send("#{current_user.accounts.first.account_type}_dashboard_path") do
+                i.fa.fa-dashboard.fa-fw
+                | Dashboard
+          - if current_account and current_account.borrower?
             li
               a href="#"
                 i.fa.fa-bar-chart-o.fa-fw
@@ -167,7 +169,7 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
                   = link_to 'My requests', borrower_requests_path
                 li
                   = link_to 'New credit request', new_borrower_request_path
-          - if current_account.investor?
+          - if current_account and current_account.investor?
             li
               a href="#"
                 i.fa.fa-bar-chart-o.fa-fw
@@ -178,13 +180,3 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
                   = link_to 'My requests', investor_requests_path
                 li
                   = link_to 'New investment request', new_investor_request_path
-          li
-            a href="#"
-              i.fa.fa-bar-chart-o.fa-fw
-              | Charts
-              span.fa.arrow
-            ul.nav.nav-second-level
-              li
-                a href="flot.html"  Flot Charts
-              li
-                a href="morris.html"  Morris.js Charts

@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     end
 
     def current_account
-      current_user.try(:account)
+      current_user.accounts.first
     end
 
 end
