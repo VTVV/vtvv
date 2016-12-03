@@ -1,0 +1,25 @@
+.row
+  .col-lg-12
+    h1.page-header Your requests
+.row
+  .col-md-12
+    table#dataTables-example.table.table-striped.table-bordered.table-hover width="100%"
+      thead
+        tr
+          th Amount
+          th Status
+          th Sent Date
+          th Due Date
+      tbody
+        - if @requests.any?
+          - @requests.each do |request|
+            tr.odd.gradeX
+              td
+                = request.amount
+                span &nbsp;$
+              td
+                span.label.label-info = request.status
+              td = request.created_at
+              td = request.due_date
+        - else
+          h1 No requests yet.

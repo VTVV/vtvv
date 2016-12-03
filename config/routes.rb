@@ -14,10 +14,12 @@ Rails.application.routes.draw do
 
   namespace :borrower do
   	  resource :dashboard, only: [:show]
+    resources :requests, only: [:new, :create, :show, :index]
   end
 
   namespace :investor do
   	  resource :dashboard, only: [:show]
+    resources :requests, only: [:new, :create, :show, :index]
   end
 
   namespace :admin do

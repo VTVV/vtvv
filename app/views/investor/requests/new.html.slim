@@ -1,0 +1,22 @@
+.row
+  .col-lg-12
+    h1.page-header Create Request For Investment
+.row
+  = render partial: 'layouts/errors', locals: {errors: @errors}
+  .col-md-12
+    = form_for @request, url: investor_requests_path do |f|
+      .row
+        .col-md-6.mt-20
+          = f.number_field :amount, placeholder: 'Amount', class: 'form-control'
+      .row
+        .col-md-6.mt-20
+          = f.number_field :from_rate, placeholder: 'From Rate', class: 'form-control'
+      .row
+        .col-md-6.mt-20
+          = f.number_field :to_rate, placeholder: 'To Rate', class: 'form-control'
+      .row
+        .col-md-6.mt-20
+          = f.number_field :duration, placeholder: 'Duration In Months', class: 'form-control'
+      .row
+        .col-md-6.mt-20
+          = f.submit 'Send request', class: 'btn btn-primary'
