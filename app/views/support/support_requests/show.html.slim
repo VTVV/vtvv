@@ -1,27 +1,23 @@
 .row
   .col-lg-12
-    h1.page-header 
+    h1.page-header
       = "Support Requests - ##{@support_request.id}"
 .row  
   .col-md-12
     .row
-      .col-md-2 You asked:
+      .col-md-2 
+        = "#{@support_request.user.profile.first_name} #{@support_request.user.profile.last_name} asked:"
       .col-md-10
         = @support_request.content
     - @support_replies.each do |support_reply|
-      - if support_reply.user_id == current_user.id
-        .row
-          .col-md-2 You replied:
-          .col-md-10
-            = support_reply.content
-      - else
-        .row
-          .col-md-2 Support:
-          .col-md-10
-            = support_reply.content
+      .row
+        .col-md-2 
+          = "#{support_reply.user.profile.first_name} #{support_reply.user.profile.last_name} replied:"
+        .col-md-10
+          = support_reply.content
   .col-md-12
     = render partial: 'layouts/errors', locals: {errors: @errors} 
-    = form_for @support_reply, url: support_replies_path do |f|
+    = form_for @support_reply, url: support_support_replies_path do |f|
       = f.hidden_field :support_request_id, value: @support_request.id
       .form-group
         label Message:

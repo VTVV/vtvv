@@ -9,14 +9,13 @@
         th User name
         th Content
         th Created at
-        th Updated at
       - @support_requests.each do |s|
         tr
           td 
-            = s.id
+            = link_to s.id, support_support_request_path(s)
           td 
-            = "#{s.user.profile.first_name} #{s.user.profile.last_name}"
+            = link_to "#{s.user.profile.first_name} #{s.user.profile.last_name}", support_support_request_path(s)
           td 
-            = s.content
+            = link_to s.content, support_support_request_path(s)
           td 
-            = s.created_at
+            = link_to s.created_at, support_support_request_path(s)
