@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
     end
 
     def current_account
-      current_user.accounts.first
+      current_user.accounts.active.first || 
+      (current_user.accounts.first.update_attributes(active: true) && current_user.accounts.active.first) 
     end
 
 end

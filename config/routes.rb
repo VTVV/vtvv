@@ -11,6 +11,11 @@ Rails.application.routes.draw do
 
   resources :building_profiles
   resource :profile, only: [:edit, :update]
+  resource :account, only: [:show] do
+  	post :change
+  	post :deposit
+  	post :withdraw
+  end
 
   namespace :borrower do
   	  resource :dashboard, only: [:show]

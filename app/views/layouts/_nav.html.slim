@@ -128,7 +128,7 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
         ul.dropdown-menu.dropdown-user
           - if current_account
             li
-              = link_to self.send("#{current_user.accounts.first.account_type}_dashboard_path") do
+              = link_to self.send("#{current_account.account_type}_dashboard_path") do
                 i.fa.fa-user.fa-fw
                 | User Profile
           li
@@ -155,7 +155,7 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
                   i.fa.fa-search
           - if current_account
             li
-              = link_to self.send("#{current_user.accounts.first.account_type}_dashboard_path") do
+              = link_to self.send("#{current_account.account_type}_dashboard_path") do
                 i.fa.fa-dashboard.fa-fw
                 | Dashboard
           - if current_account and current_account.borrower?
@@ -180,3 +180,8 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
                   = link_to 'My requests', investor_requests_path
                 li
                   = link_to 'New investment request', new_investor_request_path
+          - if current_account
+            li
+              = link_to account_path do
+                i.fa.fa-credit-card
+                | Account

@@ -1,0 +1,35 @@
+.row
+  .col-lg-12
+    	h1.col-lg-10
+    		= "Hello, #{@profile.fullname}"
+    	h1.col-lg-2
+    		- if current_user.accounts.count == 2
+	    		= form_for @account, url: change_account_path, method: :post do |f|
+	    			= f.submit 'Change Account', class: 'btn btn-success'
+	    	- else
+	    		= link_to 'Add account', building_profile_path(:choose_account), class: 'btn btn-success'
+  hr
+  .col-lg-12
+    h1
+      = "Do you want to #{@account.account_type[0...-2]} money?"
+  .col-lg-12
+    h3
+      = "Your balance is #{humanized_money_with_symbol @account.score}"
+  .col-lg-6
+    h1 Deposit money
+    = form_for @account, url: deposit_account_path, method: :post do |f|
+      .row
+        .col-md-6.mt-20
+          = f.number_field :score, placeholder: 'Amount', class: 'form-control', step: :any
+      .row
+        .col-md-6.mt-20
+          = f.submit 'Deposit', class: 'btn btn-primary'
+  .col-lg-6
+    h1 Withdraw money
+    = form_for @account, url: withdraw_account_path, method: :post do |f|
+      .row
+        .col-md-6.mt-20
+          = f.number_field :score, placeholder: 'Amount', class: 'form-control', step: :any
+      .row
+        .col-md-6.mt-20
+          = f.submit 'Deposit', class: 'btn btn-primary'

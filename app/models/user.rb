@@ -10,6 +10,6 @@ class User < ApplicationRecord
   has_one :profile
 
   def account
-    accounts.first
+    accounts.active.first
   end
 end
