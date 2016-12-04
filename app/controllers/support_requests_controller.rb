@@ -1,7 +1,7 @@
 class SupportRequestsController < ApplicationController
 
   def index
-    @support_requests = current_user.support_requests.order(:updated_at)
+    @support_requests = current_user.support_requests.order(updated_at: :desc)
   end
 
   def new

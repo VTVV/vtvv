@@ -5,6 +5,7 @@ class Support::SupportRepliesController < Support::ApplicationController
     @support_reply.user = current_user
     @support_request = @support_reply.support_request
     if @support_reply.save
+      @support_request.touch
       redirect_to support_support_request_path(@support_request)
     else
       @errors = @support_reply.errors.full_messages

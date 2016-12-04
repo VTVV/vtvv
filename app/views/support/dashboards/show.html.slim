@@ -8,7 +8,7 @@
         th Id
         th User name
         th Content
-        th Created at
+        th Updated at
       - @support_requests.each do |s|
         tr
           td 
@@ -18,4 +18,4 @@
           td 
             = link_to s.content, support_support_request_path(s)
           td 
-            = link_to s.created_at, support_support_request_path(s)
+            = link_to s.updated_at, support_support_request_path(s)
