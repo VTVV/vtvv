@@ -7,6 +7,7 @@ class User < ApplicationRecord
   attr_accessor :account_type
 
   has_many :accounts
+  has_many :support_requests
   has_one :profile
 
   def account

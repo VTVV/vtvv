@@ -94,6 +94,24 @@ ActiveRecord::Schema.define(version: 20161210180032) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "support_replies", force: :cascade do |t|
+    t.integer  "support_request_id"
+    t.integer  "user_id"
+    t.text     "content"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["support_request_id"], name: "index_support_replies_on_support_request_id", using: :btree
+    t.index ["user_id"], name: "index_support_replies_on_user_id", using: :btree
+  end
+
+  create_table "support_requests", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_support_requests_on_user_id", using: :btree
+  end
+
   create_table "system_scores", force: :cascade do |t|
     t.integer  "score_cents",    default: 0,     null: false
     t.string   "score_currency", default: "USD", null: false
