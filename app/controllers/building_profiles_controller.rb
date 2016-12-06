@@ -5,10 +5,17 @@ class BuildingProfilesController < ApplicationController
 
   steps :choose_account, :build_profile
 
+  before_filter :check_if_many_accounts
+
   def show
     @user = current_user
     case step
       when :choose_account
+        if @user.accounts.count == 1
+          Account.create(user_id: @user.id, 
+            account_type: (current_account.account_type == 'investor')? 'borrower' : 'investor')
+          redirect_to building_profile_path(:build_profile) 
+        end
       when :build_profile
         @profile = current_user.profile
     end
@@ -38,6 +45,13 @@ class BuildingProfilesController < ApplicationController
     root_path
     ### PUT YOUR PROFILE ROUTE HERE
     ### user_path(current_user)
+  end
+
+  private 
+  def check_if_many_accounts
+    unless current_user and current_user.accounts.count < 2
+      raise StandardError
+    end
   end
 
 end

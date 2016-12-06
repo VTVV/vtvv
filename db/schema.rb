@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161203125404) do
+ActiveRecord::Schema.define(version: 20161204095435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,18 +18,22 @@ ActiveRecord::Schema.define(version: 20161203125404) do
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "account_type"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "score_cents",    default: 0,     null: false
+    t.string   "score_currency", default: "USD", null: false
+    t.boolean  "active",         default: false
     t.index ["user_id"], name: "index_accounts_on_user_id", using: :btree
   end
 
   create_table "borrower_requests", force: :cascade do |t|
-    t.decimal  "amount"
     t.datetime "due_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "account_id"
     t.integer  "status"
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "USD", null: false
     t.index ["account_id"], name: "index_borrower_requests_on_account_id", using: :btree
   end
 
@@ -41,23 +45,25 @@ ActiveRecord::Schema.define(version: 20161203125404) do
   end
 
   create_table "credit_scores", force: :cascade do |t|
-    t.decimal  "score"
     t.integer  "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "account_id"
+    t.integer  "score_cents",    default: 0,     null: false
+    t.string   "score_currency", default: "USD", null: false
     t.index ["account_id"], name: "index_credit_scores_on_account_id", using: :btree
   end
 
   create_table "investor_requests", force: :cascade do |t|
-    t.decimal  "amount"
     t.decimal  "from_rate"
     t.decimal  "to_rate"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "account_id"
     t.integer  "status"
     t.integer  "duration"
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "USD", null: false
     t.index ["account_id"], name: "index_investor_requests_on_account_id", using: :btree
   end
 
@@ -93,9 +99,10 @@ ActiveRecord::Schema.define(version: 20161203125404) do
     t.integer  "borrower_id"
     t.integer  "inverstor_id"
     t.integer  "type"
-    t.decimal  "amount"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "USD", null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -8,7 +8,7 @@
         .col-xs-1
           span Borrower
         .col-xs-4
-          = f.radio_button :account_type, Account.account_types[:borrower]
+          = f.radio_button :account_type, Account.account_types[:borrower], checked: true
       .row
         .col-xs-1
           span Investor
