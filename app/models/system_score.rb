@@ -6,12 +6,4 @@ class SystemScore < ApplicationRecord
     first or create
   end
 
-  def self.create
-    nil
-  end
-
-  def self.new
-    nil
-  end
-
 end
