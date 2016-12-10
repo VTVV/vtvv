@@ -1,6 +1,6 @@
 module RequestsService
 
-  def find_appropriate_borrower_requests(investor_request)
+  def self.find_appropriate_borrower_requests(investor_request)
     if investor_request.due_date < DateTime.now
       []
     else
