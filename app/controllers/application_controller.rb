@@ -4,6 +4,13 @@ class ApplicationController < ActionController::Base
   helper_method :current_profile
   helper_method :current_account
 
+  rescue_from ActionController::RoutingError, with: :not_found
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+
+  def not_found
+    render file: "errors/not_found.html.slim", format: :html, status: :not_found
+  end
+
   private
 
     def current_profile

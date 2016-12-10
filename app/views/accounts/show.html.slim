@@ -1,16 +1,14 @@
 .row
   .col-lg-12
-    h1.page-header Account
-.row
-  .col-lg-12
-    h1
-      = "Hello, #{@profile.fullname}"
-    h1
-      - if current_user.accounts.count == 2
-        = form_for @account, url: change_account_path, method: :post do |f|
-          = f.submit 'Change Account', class: 'btn btn-success'
-      - else
-        = link_to 'Add account', building_profile_path(:choose_account), class: 'btn btn-success'
+      h1.col-lg-10
+        = "Hello, #{@profile.fullname}"
+      h1.col-lg-2
+        - if current_user.accounts.count == 2
+          = form_for @account, url: change_account_path, method: :post do |f|
+            = f.submit 'Change Account', class: 'btn btn-success'
+        - else
+          = form_for @account, url: account_path, method: :post do |f|
+            = f.submit 'Add Account', class: 'btn btn-success'
   hr
   .col-lg-12
     h1
@@ -20,19 +18,19 @@
       = "Your balance is #{humanized_money_with_symbol @account.score}"
   .col-lg-6
     h1 Deposit money
-    = form_for Account.new, url: deposit_account_path, method: :post do |f|
+    = form_for @account, url: deposit_account_path, method: :post do |f|
       .row
         .col-md-6.mt-20
-          = f.number_field :score, placeholder: 'Amount', class: 'form-control', step: :any, min: 50
+          = f.number_field :score, placeholder: 'Amount', class: 'form-control', step: :any
       .row
         .col-md-6.mt-20
-          = f.submit 'Refill', class: 'btn btn-primary'
+          = f.submit 'Deposit', class: 'btn btn-primary'
   .col-lg-6
     h1 Withdraw money
     = form_for @account, url: withdraw_account_path, method: :post do |f|
       .row
         .col-md-6.mt-20
-          = f.number_field :score, placeholder: 'Amount', class: 'form-control', step: :any, min: 30, max: @account.score
+          = f.number_field :score, placeholder: 'Amount', class: 'form-control', step: :any
       .row
         .col-md-6.mt-20
-          = f.submit 'Withdraw', class: 'btn btn-primary'
+          = f.submit 'Deposit', class: 'btn btn-primary'
