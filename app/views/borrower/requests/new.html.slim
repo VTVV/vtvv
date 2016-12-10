@@ -10,7 +10,7 @@
           = f.number_field :amount, placeholder: 'Amount', class: 'form-control'
       .row
         .col-md-6.mt-20
-          = f.date_field :due_date, class: 'form-control'
+          = f.number_field :duration, placeholder: 'Duration in weeks', class: 'form-control', step: 1
       .row
         .col-md-6.mt-20
           = f.submit 'Send request', class: 'btn btn-primary'

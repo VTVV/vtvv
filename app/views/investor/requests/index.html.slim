@@ -5,25 +5,25 @@
   .col-md-12
     table#dataTables-example.table.table-striped.table-bordered.table-hover width="100%"
       thead
+      tbody
         tr
           th Amount
-          th Duration
           th From Rate
           th To Rate
           th Status
+          th Due Date
           th Sent Date
-      tbody
         - if @requests.any?
           - @requests.each do |request|
             tr.odd.gradeX
               td
                 = request.amount
                 span &nbsp;$
-              td = request.duration
               td = request.from_rate
               td = request.to_rate
               td
                 span.label.label-info = request.status
+              td = request.due_date
               td = request.created_at
         - else
           h1 No requests yet.

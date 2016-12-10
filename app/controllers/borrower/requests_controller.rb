@@ -27,6 +27,6 @@ class Borrower::RequestsController < Borrower::ApplicationController
   private
 
   def request_params
-    params.require(:borrower_request).permit(:amount, :due_date)
+    params.require(:borrower_request).permit(:amount, :duration)
   end
 end

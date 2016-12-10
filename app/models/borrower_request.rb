@@ -1,8 +1,34 @@
 class BorrowerRequest < ApplicationRecord
-  belongs_to :account
 
   monetize :amount_cents, with_model_currency: :currency, :numericality => {:greater_than_or_equal_to => 0}
-  validates :due_date, presence: true
 
   enum status: [:pending, :performed, :rejected]
+
+  validates :duration, presence: true, numericality: {greater_than_or_equal_to: 5}
+  validates :amount, numericality: {greater_than_or_equal_to: 50}
+  validate :integral_duration
+
+  belongs_to :account
+
+  def credit_percentage
+    case amount.dollars
+      when (50...100)
+        0.3
+      when(100...500)
+        0.2
+      when(500...3000)
+        0.15
+      else
+        0.1
+    end
+  end
+
+  private
+
+  def integral_duration
+    if duration - duration.floor > 0
+      errors.add(:duration, "should be integral.")
+    end
+  end
+
 end

@@ -9,7 +9,7 @@
           th Amount
           th Status
           th Sent Date
-          th Due Date
+          th Duration(weeks)
       tbody
         - if @requests.any?
           - @requests.each do |request|
@@ -20,6 +20,6 @@
               td
                 span.label.label-info = request.status
               td = request.created_at
-              td = request.due_date
+              td = request.duration
         - else
           h1 No requests yet.

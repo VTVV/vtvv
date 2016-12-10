@@ -16,7 +16,7 @@
           = f.number_field :to_rate, placeholder: 'To Rate', class: 'form-control'
       .row
         .col-md-6.mt-20
-          = f.number_field :duration, placeholder: 'Duration In Months', class: 'form-control'
+          = f.date_field :due_date, class: 'form-control'
       .row
         .col-md-6.mt-20
           = f.submit 'Send request', class: 'btn btn-primary'

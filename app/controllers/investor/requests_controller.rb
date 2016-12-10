@@ -30,6 +30,6 @@ class Investor::RequestsController < Investor::ApplicationController
     params.require(:investor_request).permit(:amount,
                                              :from_rate,
                                              :to_rate,
-                                             :duration)
+                                             :due_date)
   end
 end

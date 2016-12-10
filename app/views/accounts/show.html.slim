@@ -1,13 +1,16 @@
 .row
   .col-lg-12
-      h1.col-lg-10
-        = "Hello, #{@profile.fullname}"
-      h1.col-lg-2
-        - if current_user.accounts.count == 2
-          = form_for @account, url: change_account_path, method: :post do |f|
-            = f.submit 'Change Account', class: 'btn btn-success'
-        - else
-          = link_to 'Add account', building_profile_path(:choose_account), class: 'btn btn-success'
+    h1.page-header Account
+.row
+  .col-lg-12
+    h1
+      = "Hello, #{@profile.fullname}"
+    h1
+      - if current_user.accounts.count == 2
+        = form_for @account, url: change_account_path, method: :post do |f|
+          = f.submit 'Change Account', class: 'btn btn-success'
+      - else
+        = link_to 'Add account', building_profile_path(:choose_account), class: 'btn btn-success'
   hr
   .col-lg-12
     h1
