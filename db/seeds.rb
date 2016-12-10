@@ -124,3 +124,7 @@ second_investor.profile = Profile.new
 second_investor.skip_confirmation!
 second_investor.save
 ### end generate Investors
+
+### generate System Score
+SystemScore.create(score: 0)
+### end generate System Score
