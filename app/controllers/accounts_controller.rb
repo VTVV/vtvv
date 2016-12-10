@@ -22,18 +22,16 @@ class AccountsController < ApplicationController
   end
 
   def deposit
-    @account.score += Money.new(params[:account][:score].to_f * 100, "USD")
-    unless @account.save
-      raise StandardError
-    end
+    Transaction.create(current_account.account_type.to_sym => current_account,
+                       kind: :refill,
+                       amount: params[:account][:score].to_f)
     redirect_to account_path
   end
 
   def withdraw
-    @account.score -= Money.new(params[:account][:score].to_f * 100, "USD")
-    unless @account.save
-      raise StandardError
-    end
+    Transaction.create(current_account.account_type.to_sym => current_account,
+                       kind: :withdrawal,
+                       amount: params[:account][:score].to_f)
     redirect_to account_path
   end
 
