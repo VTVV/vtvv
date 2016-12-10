@@ -9,7 +9,7 @@ module RequestsService
       BorrowerRequest
           .select do |br|
             ### by ROT
-            cs = br.account.credit_score
+            cs = br.account.credit_score.score
             cs_ok = (cs >= lowest_cs && cs <= highest_cs)
             ### by status
             status_ok = (br.status == 'pending')
