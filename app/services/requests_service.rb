@@ -4,8 +4,8 @@ module RequestsService
     if investor_request.due_date < DateTime.now
       []
     else
-      lowest_cs = investor_request.from_rate
-      highest_cs = investor_request.to_rate
+      lowest_cs = investor_request.from_rate.to_f / 100
+      highest_cs = investor_request.to_rate.to_f / 100
       ids = BorrowerRequest
                 .select do |br|
                   ### by ROT
