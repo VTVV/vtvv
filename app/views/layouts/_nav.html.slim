@@ -185,3 +185,14 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
               = link_to account_path do
                 i.fa.fa-credit-card
                 | Account
+          - if current_account && !current_account.support?
+            li
+              a href="#"
+                i.fa.fa-bar-chart-o.fa-fw
+                | Support Requests
+                span.fa.arrow
+              ul.nav.nav-second-level
+                li
+                  = link_to 'My support requests', support_requests_path
+                li
+                  = link_to 'New support request', new_support_request_path

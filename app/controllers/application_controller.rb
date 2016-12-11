@@ -7,11 +7,11 @@ class ApplicationController < ActionController::Base
   private
 
     def current_profile
-      current_user.try(:profile) || Profile.new
+      @current_profile ||= current_user.try(:profile) || Profile.new
     end
 
     def current_account
-      (current_user.accounts.present?) &&
+      @current_account ||= (current_user.accounts.present?) &&
       (current_user.accounts.active.first ||
       (current_user.accounts.first.update_attributes(active: true) && current_user.accounts.active.first))
     end

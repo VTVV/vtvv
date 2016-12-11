@@ -1,0 +1,13 @@
+.row
+  .col-lg-12
+    h1.page-header Support Requests - New
+.row  
+  = render partial: 'layouts/errors', locals: {errors: @errors} 
+  .col-md-12
+    = form_for @support_request, url: support_requests_path do |f|
+      .form-group
+        label Describe your issue please:
+        = f.text_area :content, size: '60x12', class: 'form-control'
+      =f.submit 'Request support', class: 'btn btn-primary'
+      
+             
