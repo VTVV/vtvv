@@ -1,4 +1,4 @@
-class Transaction < ApplicationRecord
+class ArdisTransaction < ApplicationRecord
 
   COMMISSION_PERCENT = 0.05
 
@@ -6,12 +6,45 @@ class Transaction < ApplicationRecord
 
   enum kind: [:refill, :withdrawal, :loan, :refund, :commission]
 
-  after_save :process_money
-
   belongs_to :borrower, class_name: 'Account', optional: true
   belongs_to :investor, class_name: 'Account', optional: true
 
+  validate :check_account_score
+
+  after_save :process_money
+
   private
+
+  def check_account_score
+    case kind
+    when 'withdrawal'
+      check_score_for_withdrawal
+    when 'loan'
+      check_score_for_loan
+    when 'refund'
+      check_score_for_refund
+    when 'commission'
+      get_commission
+    end
+  end
+
+  def check_score_for_withdrawal
+    if borrower.score.dollars < amount.dollars
+      errors.add(:amount, 'can not be less than account score.')
+    end
+  end
+
+  def check_score_for_loan
+    if investor.score.dollars < amount.dollars
+      errors.add(:amount, 'can not be less than account score.')
+    end
+  end
+
+  def check_score_for_refund
+    if borrower.score.dollars < amount.dollars
+      errors.add(:amount, 'can not be less than account score.')
+    end
+  end
 
   def process_money
     case kind
@@ -20,7 +53,9 @@ class Transaction < ApplicationRecord
     when 'withdrawal'
       withdrawal
     when 'loan'
+      loan
     when 'refund'
+      refund
     when 'commission'
       get_commission
     end
@@ -41,7 +76,7 @@ class Transaction < ApplicationRecord
       current_account_score = account.score.amount
       updated_account_score = current_account_score + amount_to_refill
       account.update(score: Money.new(updated_account_score * 100, 'USD'))
-      Transaction.create(kind: :commission, amount: commission_amount)
+      ArdisTransaction.create(kind: :commission, amount: commission_amount)
     end
   end
 
@@ -53,7 +88,26 @@ class Transaction < ApplicationRecord
       current_account_score = account.score.amount
       updated_account_score = current_account_score - amount_to_refill
       account.update(score: Money.new(updated_account_score * 100, 'USD'))
-      Transaction.create(kind: :commission, amount: commission_amount)
+      ArdisTransaction.create(kind: :commission, amount: commission_amount)
+    end
+  end
+
+  def loan
+    transaction do
+      amount_to_loan = amount.dollars
+      borrower_amount = borrower.score.dollars
+      updated_borrower_score = borrower_amount + amount_to_loan
+      investor_amount = investor.score.dollars
+      updated_investor_score = investor_amount - amount_to_loan
+      borrower.update(score: Money.new(updated_borrower_score * 100, 'USD'))
+      investor.update(score: Money.new(updated_investor_score * 100, 'USD'))
+    end
+  end
+
+
+  def refund
+    transaction do
+      ## TODO
     end
   end
 end

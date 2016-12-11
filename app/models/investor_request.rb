@@ -1,16 +1,42 @@
 class InvestorRequest < ApplicationRecord
-  belongs_to :account
 
   monetize :amount_cents, with_model_currency: :currency, :numericality => {:greater_than_or_equal_to => 0}
+
+  enum status: [:pending, :active, :completed, :rejected]
+
+  belongs_to :account
+  has_many :debts, touch: true
 
   validates :from_rate, presence: true, numericality: {greater_than: 0, less_than_or_equal_to: 100}
   validates :to_rate, presence: true, numericality: {greater_than: 0, less_than_or_equal_to: 100}
   validates :due_date, presence: true
   validate :validate_due_date
 
-  enum status: [:pending, :performed, :rejected]
+  after_save :check_status
+
+  def pending?
+    status == 'pending'
+  end
+
+  def active?
+    status == 'active'
+  end
+
+  def completed?
+    status == 'completed'
+  end
 
   private
+
+  def check_status
+    money_borrowed = debts.reduce do |sum, debt|
+                       sum += debt.stats[:money_borrowed]
+                       sum
+    end
+    if active? && (money_borrowed == amount.dollars)
+      update(status: :completed)
+    end
+  end
 
   def validate_due_date
     if due_date

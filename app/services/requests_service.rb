@@ -17,8 +17,12 @@ module RequestsService
                   duration_ok = br.duration < ((investor_request.due_date - DateTime.now) / 1.week)
                   status_ok && cs_ok && duration_ok
                 end
-      BorrowerRequest.where(id: ids).order('amount_cents DESC')
+      BorrowerRequest.where(id: ids).order('created_at DESC')
     end
+  end
+
+  def self.incomplete_investor_requests
+    InvestorRequest.where(status: [:pending, :active])
   end
 
 end
