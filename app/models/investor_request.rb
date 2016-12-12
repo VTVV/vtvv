@@ -5,7 +5,7 @@ class InvestorRequest < ApplicationRecord
   enum status: [:pending, :active, :completed, :rejected]
 
   belongs_to :account
-  has_many :debts, touch: true
+  has_many :debts
 
   validates :from_rate, presence: true, numericality: {greater_than: 0, less_than_or_equal_to: 100}
   validates :to_rate, presence: true, numericality: {greater_than: 0, less_than_or_equal_to: 100}
