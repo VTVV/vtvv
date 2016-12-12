@@ -11,11 +11,11 @@ module DebtsService
   def self.create_loan(investor_request, borrower_request)
     amount_for_loan = DebtsService.amount_for_loan(investor_request, borrower_request)
     debt = Debt.new(borrower_request: borrower_request, status: :active)
-    debt.investor_requests << investor_request
-    transaction = ArdisTransaction.new(kind: :load,
+    investor_request.debts << debt
+    transaction = ArdisTransaction.new(kind: :loan,
                                        amount: amount_for_loan,
                                        borrower: borrower_request.account,
-                                       investor: investor_request)
+                                       investor: investor_request.account)
     if transaction.valid?
       debt.ardis_transactions << transaction
       debt.save
