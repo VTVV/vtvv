@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161210180032) do
+ActiveRecord::Schema.define(version: 20161210213036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 20161210180032) do
     t.string   "score_currency", default: "USD", null: false
     t.boolean  "active",         default: false
     t.index ["user_id"], name: "index_accounts_on_user_id", using: :btree
+  end
+
+  create_table "ardis_transactions", force: :cascade do |t|
+    t.integer  "borrower_id"
+    t.integer  "investor_id"
+    t.integer  "kind"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "USD", null: false
   end
 
   create_table "borrower_requests", force: :cascade do |t|
@@ -51,6 +61,32 @@ ActiveRecord::Schema.define(version: 20161210180032) do
     t.integer  "account_id"
     t.decimal  "score"
     t.index ["account_id"], name: "index_credit_scores_on_account_id", using: :btree
+  end
+
+  create_table "debts", force: :cascade do |t|
+    t.integer  "status"
+    t.integer  "borrower_request_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["borrower_request_id"], name: "index_debts_on_borrower_request_id", using: :btree
+  end
+
+  create_table "debts_ardis_transactions", force: :cascade do |t|
+    t.integer  "debt_id"
+    t.integer  "ardis_transaction_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["ardis_transaction_id"], name: "index_debts_ardis_transactions_on_ardis_transaction_id", using: :btree
+    t.index ["debt_id"], name: "index_debts_ardis_transactions_on_debt_id", using: :btree
+  end
+
+  create_table "debts_investor_requests", force: :cascade do |t|
+    t.integer  "debt_id"
+    t.integer  "investor_request_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["debt_id"], name: "index_debts_investor_requests_on_debt_id", using: :btree
+    t.index ["investor_request_id"], name: "index_debts_investor_requests_on_investor_request_id", using: :btree
   end
 
   create_table "investor_requests", force: :cascade do |t|
@@ -119,16 +155,6 @@ ActiveRecord::Schema.define(version: 20161210180032) do
     t.datetime "updated_at",                     null: false
   end
 
-  create_table "transactions", force: :cascade do |t|
-    t.integer  "borrower_id"
-    t.integer  "investor_id"
-    t.integer  "kind"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "amount_cents",    default: 0,     null: false
-    t.string   "amount_currency", default: "USD", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -152,5 +178,10 @@ ActiveRecord::Schema.define(version: 20161210180032) do
   end
 
   add_foreign_key "accounts", "users"
+  add_foreign_key "debts", "borrower_requests"
+  add_foreign_key "debts_ardis_transactions", "ardis_transactions"
+  add_foreign_key "debts_ardis_transactions", "debts"
+  add_foreign_key "debts_investor_requests", "debts"
+  add_foreign_key "debts_investor_requests", "investor_requests"
   add_foreign_key "profiles", "users"
 end

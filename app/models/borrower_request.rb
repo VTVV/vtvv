@@ -2,13 +2,14 @@ class BorrowerRequest < ApplicationRecord
 
   monetize :amount_cents, with_model_currency: :currency, :numericality => {:greater_than_or_equal_to => 0}
 
-  enum status: [:pending, :performed, :rejected]
+  enum status: [:pending, :active, :completed, :rejected]
 
   validates :duration, presence: true, numericality: {greater_than_or_equal_to: 5}
   validates :amount, numericality: {greater_than_or_equal_to: 50}
   validate :integral_duration
 
   belongs_to :account
+  has_many :debts
 
   def credit_percentage
     case amount.dollars
