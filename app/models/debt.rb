@@ -24,7 +24,7 @@ class Debt < ApplicationRecord
   end
 
   def money_borrowed
-    ardis_transactions.where(status: :loan).map(&map_money)
+    ardis_transactions.where(kind: :loan).map(&map_money)
   end
 
   def money_to_refund
@@ -32,7 +32,7 @@ class Debt < ApplicationRecord
   end
 
   def money_refunded
-    ardis_transactions.where(status: :refund).map(&map_money)
+    ardis_transactions.where(kind: :refund).map(&map_money)
   end
 
   def try_update_status
