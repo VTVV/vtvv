@@ -15,7 +15,7 @@ class User < ApplicationRecord
   end
 
   def timeout_in
-    if self.account.borrower? || self.account.investor? 
+    if account && (account.borrower? || account.investor?) 
       30.minutes
     else
       1.year

@@ -1,4 +1,5 @@
 class SupportRequestsController < ApplicationController
+  include Authorizable
 
   def index
     @support_requests = current_user.support_requests.latest_support_replies
@@ -20,7 +21,6 @@ class SupportRequestsController < ApplicationController
   end
 
   def show
-    @support_request = SupportRequest.find(params[:id])
     @support_replies = @support_request.support_replies.order(:created_at)
     @support_reply = SupportReply.new
   end
@@ -29,6 +29,14 @@ class SupportRequestsController < ApplicationController
 
     def support_request_params
       params.require(:support_request).permit(:content)
+    end
+
+    def entity
+      @support_request = SupportRequest.find(params[:id])
+    end
+
+    def model
+      SupportRequest
     end
 
 end

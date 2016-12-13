@@ -10,4 +10,5 @@ html
     #wrapper
       = render 'layouts/nav'
       #page-wrapper
-         = yield
+        = render partial: 'layouts/flash'
+        = yield

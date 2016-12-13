@@ -20,4 +20,8 @@ class SupportRepliesController < ApplicationController
       params.require(:support_reply).permit(:content, :support_request_id)
     end
 
+    def model
+      SupportReply
+    end
+
 end

@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   include ProfileData
-  before_action :authorize_user
+  include Authorizable
 
   def edit
   end
@@ -13,9 +13,11 @@ class ProfilesController < ApplicationController
     end
   end
   private
-  def authorize_user
-    unless current_user.present? && (current_user.account.borrower? || current_user.account.investor?)
-      redirect_back(fallback_location: root_path)
+    def entity
+      @profile = current_profile
     end
-  end
+
+    def model
+      Profile
+    end
 end
