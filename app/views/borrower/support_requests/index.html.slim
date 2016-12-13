@@ -1,0 +1,23 @@
+.row
+  .col-lg-12
+    h1.page-header Support Requests
+.row  
+  .col-xs-offset-1.col-xs-10
+    = link_to 'New support request', new_support_request_path
+    table.table
+      tr
+        th Id
+        th User name
+        th Content
+        th Created at
+      - @support_requests.each do |s|
+        tr
+          td 
+            = s.id
+          td 
+            = "#{s.user.profile.first_name} #{s.user.profile.last_name}"
+          td 
+            = s.content
+          td 
+            = s.created_at
+             

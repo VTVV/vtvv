@@ -2,4 +2,26 @@
   .col-lg-12
     h1.page-header Dashboard
 .row
-  = link_to 'Change profile', edit_profile_path
+  .col-xs-offset-1.col-xs-10
+    table.table
+      tr
+        th Id
+        th User name
+        th Content
+        th Updated at
+        th Answered
+      - @support_requests.each do |s|
+        tr
+          td
+            = link_to s.id, support_support_request_path(s)
+          td
+            = link_to "#{s.user.profile.first_name} #{s.user.profile.last_name}", support_support_request_path(s)
+          td
+            = link_to s.last_message, support_support_request_path(s)
+          td
+            = link_to s.updated_at, support_support_request_path(s)
+          td
+            - if s.answered?
+              = 'Yes'
+            - else
+              = 'No'

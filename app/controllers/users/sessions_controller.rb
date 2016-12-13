@@ -22,12 +22,4 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
-  def active
-    render_session_status
-  end
-
-  def timeout
-    flash[:notice] = "Your session has timed out."
-    redirect_to new_user_session_path
-  end
 end

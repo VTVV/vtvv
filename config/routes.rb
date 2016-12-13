@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     post :deposit
     post :withdraw
   end
+  resources :support_requests, only: [:show, :index, :create, :new]
+  resources :support_replies, only: [:create]
 
   namespace :borrower do
     resource :dashboard, only: [:show]
@@ -37,6 +39,8 @@ Rails.application.routes.draw do
 
   namespace :support do
     resource :dashboard, only: [:show]
+    resources :support_requests
+    resources :support_replies, only: [:create]
   end
 
   get '*unmatched_route', to: 'application#not_found' # should be last

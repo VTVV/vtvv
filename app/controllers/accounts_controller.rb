@@ -27,14 +27,16 @@ class AccountsController < ApplicationController
   end
 
   def deposit
-    @account.score += params[:account][:score].to_money
-    @account.save
+    ArdisTransaction.create(current_account.account_type.to_sym => current_account,
+                            kind: :refill,
+                            amount: params[:account][:score].to_f)
     redirect_to account_path
   end
 
   def withdraw
-    @account.score -= params[:account][:score].to_money
-    @account.save
+    ArdisTransaction.create(current_account.account_type.to_sym => current_account,
+                            kind: :withdrawal,
+                            amount: params[:account][:score].to_f)
     redirect_to account_path
   end
 
