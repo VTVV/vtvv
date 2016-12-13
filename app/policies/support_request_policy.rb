@@ -1,0 +1,2 @@
+class SupportRequestPolicy < BasePolicy
+end

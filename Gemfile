@@ -40,6 +40,7 @@ gem 'money-rails'
 gem 'pry-rails'
 gem 'mini_magick'
 gem 'carrierwave'
+gem 'pundit'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
