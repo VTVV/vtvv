@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :building_profiles
   resource :profile, only: [:edit, :update]
-  resource :account, only: [:show] do
+  resource :account, only: [:show, :create] do
     post :change
     post :deposit
     post :withdraw
@@ -42,6 +42,8 @@ Rails.application.routes.draw do
     resources :support_requests
     resources :support_replies, only: [:create]
   end
+
+  get '*unmatched_route', to: 'application#not_found' # should be last
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :trackable, :validatable, :timeoutable
 
   attr_accessor :account_type
 
@@ -12,5 +12,13 @@ class User < ApplicationRecord
 
   def account
     accounts.active.first
+  end
+
+  def timeout_in
+    if self.account.borrower? || self.account.investor? 
+      30.minutes
+    else
+      1.year
+    end
   end
 end
