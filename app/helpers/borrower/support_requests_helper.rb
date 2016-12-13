@@ -1,0 +1,2 @@
+module Borrower::SupportRequestsHelper
+end
