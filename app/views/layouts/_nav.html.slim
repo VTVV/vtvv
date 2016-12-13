@@ -128,7 +128,7 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
         ul.dropdown-menu.dropdown-user
           - if current_account
             li
-              = link_to self.send("#{current_account.account_type}_dashboard_path") do
+              = link_to edit_profile_path do
                 i.fa.fa-user.fa-fw
                 | User Profile
           li
