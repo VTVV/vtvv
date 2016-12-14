@@ -126,6 +126,10 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
           i.fa.fa-user.fa-fw
           i.fa.fa-caret-down
         ul.dropdown-menu.dropdown-user
+          li
+            = link_to frequently_asked_questions_path do
+              i.fa.fa-user.fa-fw
+              | F.A.Q.
           - if current_account
             li
               = link_to self.send("#{current_account.account_type}_dashboard_path") do
