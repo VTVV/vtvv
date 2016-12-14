@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :not_found
 
   def not_found
-    render file: "errors/not_found.html.slim", format: :html, status: :not_found
+    redirect_back fallback_location: root_path, :flash => { :error => "Insufficient rights!" }
   end
 
   private
