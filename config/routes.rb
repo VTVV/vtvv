@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   resource :home, only: 'show'
 
   root to: 'home#show'
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
       registrations: 'users/registrations'
   }
 
+  resources :frequently_asked_questions
   resources :building_profiles
   resource :profile, only: [:edit, :update]
   resource :account, only: [:show] do
