@@ -126,6 +126,10 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
           i.fa.fa-user.fa-fw
           i.fa.fa-caret-down
         ul.dropdown-menu.dropdown-user
+          li
+            = link_to frequently_asked_questions_path do
+              i.fa.fa-user.fa-fw
+              | F.A.Q.
           - if current_account
             li
               = link_to edit_profile_path do
@@ -180,6 +184,18 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
                   = link_to 'My requests', investor_requests_path
                 li
                   = link_to 'New investment request', new_investor_request_path
+          - if current_account and current_account.underwriter?
+            li
+              a href="#"
+                i.fa.fa-bar-chart-o.fa-fw
+                | F.A.Q.
+                span.fa.arrow
+              ul.nav.nav-second-level
+                li
+                  = link_to 'F.A.Q. list', frequently_asked_questions_path
+                - if FrequentlyAskedQuestion.count < FrequentlyAskedQuestion::FAQ_LIMIT
+                  li
+                    = link_to 'Add F.A.Q.', new_frequently_asked_question_path
           - if current_account
             li
               = link_to account_path do
