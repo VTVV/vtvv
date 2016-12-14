@@ -6,7 +6,7 @@ class Investor::ApplicationController < ApplicationController
 
     def authorize_user
       unless current_user.present? && current_user.account.investor?
-        redirect_back(fallback_location: root_path)
+        not_found
       end
     end
 
