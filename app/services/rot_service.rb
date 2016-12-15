@@ -1,5 +1,7 @@
 module RotService
 
+  weight = [0.3, 0.3, 0.4]
+
   def self.create_user_score(user)
     '''
       Calculating user credit score according to the past
@@ -31,9 +33,9 @@ module RotService
     user_profile.attributes.each_pair do |name, value|
       count +=  (value.nil? ? 1 : 0)
     end
-
+    profile_part = weight[1] * count
     # ardis credit history part
-
+    user_account.credit_score = profile_part
     puts user_account.credit_score.score
   end
 end
