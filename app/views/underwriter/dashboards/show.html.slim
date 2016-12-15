@@ -8,14 +8,20 @@
         th Name
         th Email
         th Amount
+        th Duration
+        th Status
         th Created at
       - @borrower_requests.each do |b|
         tr
           td
-            = "#{b.user.profile.first_name} #{b.user.profile.last_name}"
+            = link_to "#{b.account.user.profile.first_name} #{b.account.user.profile.last_name}", underwriter_borrower_request_path(b)
           td
-            = b.user.email
+            = b.account.user.email
           td
             = b.amount
-          td 
+          td
+            = b.duration
+          td
+            = b.status
+          td
             = b.created_at

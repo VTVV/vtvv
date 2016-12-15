@@ -1,0 +1,60 @@
+.row
+  .col-lg-12
+    h1.page-header Support Requests - New
+.row
+  = render partial: 'layouts/errors', locals: {errors: @errors}
+  .col-md-12
+    table.table
+      tr
+        td First name
+        td
+          = @borrower_request.account.user.profile.first_name
+      tr
+        td Last name
+        td
+          = @borrower_request.account.user.profile.last_name
+      tr
+        td Sex
+        td
+          = @borrower_request.account.user.profile.sex
+      tr
+        td Nationality
+        td
+          = @borrower_request.account.user.profile.nationality
+      tr
+        td Address
+        td
+          = @borrower_request.account.user.profile.address
+      tr
+        td Home phone
+        td
+          = @borrower_request.account.user.profile.home_phone
+      tr
+        td Mobile phone
+        td
+          = @borrower_request.account.user.profile.mobile_phone
+      tr
+        td Company name
+        td
+          = @borrower_request.account.user.profile.company_name
+      tr
+        td Job position
+        td
+          = @borrower_request.account.user.profile.job_position
+      tr
+        td Salary
+        td
+          = @borrower_request.account.user.profile.salary
+      tr
+        td Passport scan
+        td
+          = image_tag(@borrower_request.account.user.profile.passport.url, class: 'profile-image')
+
+
+    = form_for @borrower_request, url: underwriter_borrower_request_path(@borrower_request) do |f|
+      = f.hidden_field :status, value: :rejected
+      = f.submit 'Reject', class: 'btn btn-warning'
+
+    = form_for @borrower_request, url: underwriter_borrower_request_path(@borrower_request) do |f|
+      = f.hidden_field :status, value: :pending
+      = f.submit 'Approve', class: 'btn btn-danger'
