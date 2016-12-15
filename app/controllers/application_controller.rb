@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from Pundit::NotAuthorizedError, with: :not_found
 
+  before_action :check_if_has_account
+
   def not_found
     redirect_back fallback_location: root_path, :flash => { :error => "Insufficient rights!" }
   end
@@ -29,5 +31,10 @@ class ApplicationController < ActionController::Base
       root_path
     end
 
+    def check_if_has_account
+      if current_user && current_user.accounts.count == 0 && request.env['PATH_INFO'] != building_profile_path(:choose_account)
+        redirect_to building_profile_path(:choose_account)
+      end
+    end
 
 end
