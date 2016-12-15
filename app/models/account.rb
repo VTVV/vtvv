@@ -10,4 +10,8 @@ class Account < ApplicationRecord
 
   scope :active, -> {where active: true}
   scope :nonactive, -> {where active: false}
+
+  def borrower_or_investor?
+    borrower? || investor?
+  end
 end
