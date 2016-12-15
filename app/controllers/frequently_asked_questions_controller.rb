@@ -13,7 +13,7 @@ class FrequentlyAskedQuestionsController < ApplicationController
   def create
     @faq = FrequentlyAskedQuestion.new(faqs_params)
     if @faq.save
-      flash[:success] = 'FAQ was successfully created!'
+      flash[:success] = 'FAQ has been successfully created!'
       redirect_to frequently_asked_questions_path
     else
       @errors = @faq.errors.full_messages
@@ -28,7 +28,7 @@ class FrequentlyAskedQuestionsController < ApplicationController
   def update
     @faq = FrequentlyAskedQuestion.find(params[:id])
     if @faq.update((faqs_params))
-      flash[:success] = 'FAQ was successfully updated!'
+      flash[:success] = 'FAQ has been successfully updated!'
       redirect_to frequently_asked_questions_path
     else
       @errors = @faq.errors.full_messages

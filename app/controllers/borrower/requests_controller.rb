@@ -12,7 +12,7 @@ class Borrower::RequestsController < Borrower::ApplicationController
     @request.status = BorrowerRequest.statuses[:pending]
     @request.account = current_account
     if @request.save
-      flash[:success] = 'The request was successfully sent!'
+      flash[:success] = 'The request has been successfully sent!'
       redirect_to borrower_requests_path
     else
       @errors = @request.errors.full_messages

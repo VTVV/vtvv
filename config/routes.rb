@@ -32,7 +32,9 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resource :dashboard, only: [:show]
+    resource :dashboard, only: [:show] do
+      post :ban
+    end
   end
 
   namespace :underwriter do
