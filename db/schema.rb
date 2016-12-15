@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161215084619) do
+ActiveRecord::Schema.define(version: 20161215160347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,14 @@ ActiveRecord::Schema.define(version: 20161215084619) do
     t.datetime "updated_at",          null: false
     t.index ["debt_id"], name: "index_debts_investor_requests_on_debt_id", using: :btree
     t.index ["investor_request_id"], name: "index_debts_investor_requests_on_investor_request_id", using: :btree
+  end
+
+  create_table "debts_status_histories", force: :cascade do |t|
+    t.integer  "status"
+    t.integer  "debt_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["debt_id"], name: "index_debts_status_histories_on_debt_id", using: :btree
   end
 
   create_table "frequently_asked_questions", force: :cascade do |t|
@@ -191,5 +199,6 @@ ActiveRecord::Schema.define(version: 20161215084619) do
   add_foreign_key "debts_ardis_transactions", "debts"
   add_foreign_key "debts_investor_requests", "debts"
   add_foreign_key "debts_investor_requests", "investor_requests"
+  add_foreign_key "debts_status_histories", "debts"
   add_foreign_key "profiles", "users"
 end
