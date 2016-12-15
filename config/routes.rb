@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
   namespace :underwriter do
     resource :dashboard, only: [:show]
+    resources :borrower_requests, only: [:show, :update]
   end
 
   namespace :support do
