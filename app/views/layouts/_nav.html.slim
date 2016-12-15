@@ -196,7 +196,7 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
                 - if FrequentlyAskedQuestion.count < FrequentlyAskedQuestion::FAQ_LIMIT
                   li
                     = link_to 'Add F.A.Q.', new_frequently_asked_question_path
-          - if current_account
+          - if current_account && (current_account.borrower? || current_account.investor?)
             li
               = link_to account_path do
                 i.fa.fa-credit-card

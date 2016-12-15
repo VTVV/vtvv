@@ -12,7 +12,7 @@ class Investor::RequestsController < Investor::ApplicationController
     @request.status = InvestorRequest.statuses[:pending]
     @request.account = current_account
     if @request.save
-      flash[:success] = 'The request was successfully sent!'
+      flash[:success] = 'The request has been successfully sent!'
       redirect_to investor_requests_path
     else
       @errors = @request.errors.full_messages

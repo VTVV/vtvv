@@ -9,6 +9,7 @@
         th Email
         th Type
         th Created at
+        th
       - @users.each do |u|
         -u.accounts.each do |account|
           tr
@@ -20,3 +21,6 @@
               = account.account_type
             td
               = u.created_at
+            td
+              = form_for u, url: ban_admin_dashboard_path(u), method: :post do |f|
+                = f.submit u.allowed_to_log_in? ? 'Ban' : 'Unban', class: 'btn btn-danger'
