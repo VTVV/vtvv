@@ -28,7 +28,7 @@ dump.rdb
 
 # Ignore common files
 /config/database.yml
-/config/secrets.yml
+#/config/secrets.yml
 
 .DS_Store
 app/.DS_Store
