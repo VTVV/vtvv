@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
   end
 
   def create
-    account = Account.create(user_id: current_user.id, 
+    account = Account.create(user_id: current_user.id,
             account_type: (current_account.investor?)? 'borrower' : 'investor')
     redirect_to account_path
   end
@@ -20,17 +20,17 @@ class AccountsController < ApplicationController
     redirect_to account_path
   end
 
-  def deposit
-    ArdisTransaction.create(current_account.account_type.to_sym => current_account,
-                            kind: :refill,
-                            amount: params[:account][:score].to_f)
-    redirect_to account_path
-  end
-
   def withdraw
     ArdisTransaction.create(current_account.account_type.to_sym => current_account,
                             kind: :withdrawal,
                             amount: params[:account][:score].to_f)
+    redirect_to account_path
+  end
+
+  def refund
+    amount = params[:account][:score].to_f
+    DebtsService.pay_off(current_account, amount)
+    flash[:success] = 'Refund is successfully done!'
     redirect_to account_path
   end
 
@@ -40,7 +40,7 @@ class AccountsController < ApplicationController
       @account = current_account
     end
 
-    def model 
+    def model
       Account
     end
 end

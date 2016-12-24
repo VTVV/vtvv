@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
 
-
   resource :home, only: 'show'
 
   root to: 'home#show'
 
   devise_for :users, controllers: {
       sessions: 'users/sessions',
-      registrations: 'users/registrations'
+      registrations: 'users/registrations',
+      passwords: 'users/passwords'
   }
 
   resources :frequently_asked_questions
@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   resource :profile, only: [:edit, :update]
   resource :account, only: [:show, :create] do
     post :change
-    post :deposit
     post :withdraw
+    post :refund
   end
   resources :support_requests, only: [:show, :index, :create, :new]
   resources :support_replies, only: [:create]
@@ -40,6 +40,16 @@ Rails.application.routes.draw do
   namespace :underwriter do
     resource :dashboard, only: [:show]
     resources :borrower_requests, only: [:show, :update]
+    resources :refills, only: [:index] do
+      collection do
+        get :borrowers
+        get :investors
+      end
+      member do
+        post :borrower_refill
+        post :investor_refill
+      end
+    end
   end
 
   namespace :support do

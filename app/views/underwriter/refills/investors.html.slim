@@ -1,0 +1,25 @@
+.row
+  .col-lg-12
+    h1.page-header Investors
+.row
+  .col-xs-offset-1.col-xs-10
+    table.table.table-bordered.table-hover.table-responsive
+      tr
+        th Name
+        th Email
+        th Money
+        th Sum to Refill
+        th Options
+      - @investors.each do |investor|
+        = form_for :investor, url: investor_refill_underwriter_refill_path(investor) do |f|
+          tr
+            td
+              - if investor.profile.first_name.blank? && investor.profile.last_name.blank?
+                = 'No name set.'
+              - else
+                = "#{investor.profile.first_name} #{investor.profile.last_name}"
+            td = investor.user.email
+            td = investor.score.dollars
+            td
+              = f.number_field :amount, min: 50, max: 100000, placeholder: 'Amount', required: true, class: 'form-control'
+            td = f.submit 'Refill', class: 'btn btn-primary'
