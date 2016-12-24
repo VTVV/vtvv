@@ -4,10 +4,10 @@
     .col-xs-8
       .row.top-margin-20
         .col-xs-4
-          = f.text_field :first_name, class: 'form-control', placeholder: 'First Name', minlength: 5, :maxlength => 50, :required => true
+          = f.text_field :first_name, class: 'form-control', placeholder: 'First Name', minlength: 5, maxlength: 50, required: true
       .row.top-margin-20
         .col-xs-4
-          = f.text_field :last_name, class: 'form-control', placeholder: 'Last Name', :minlength => 5, :maxlength => 50, required: true
+          = f.text_field :last_name, class: 'form-control', placeholder: 'Last Name', minlength: 5, maxlength: 50, required: true
       .row.top-margin-20
         .col-xs-4
           = f.collection_select :sex, [['Female', 0], ['Male', 1]], :last, :first, {}, class: 'form-control'
@@ -28,7 +28,7 @@
           = f.text_field :nationality, class: 'form-control', placeholder: 'Nationality', maxlength: 50
       .row.top-margin-20
         .col-xs-4
-          = f.number_field :credit_number, class: 'form-control', placeholder: 'Credit Number', :required => true
+          = f.number_field :credit_number, class: 'form-control', placeholder: 'Credit Number', required: true
       .row.top-margin-20
         .col-xs-4
           = f.number_field :salary, class: 'form-control', placeholder: 'Salary', maxlength: 10
