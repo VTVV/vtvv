@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
   end
 
   def create
-    account = Account.create(user_id: current_user.id, 
+    account = Account.create(user_id: current_user.id,
             account_type: (current_account.investor?)? 'borrower' : 'investor')
     redirect_to account_path
   end
@@ -17,13 +17,6 @@ class AccountsController < ApplicationController
     nonactive = accounts.nonactive.first
     active.update(active: false)
     nonactive.update(active: true)
-    redirect_to account_path
-  end
-
-  def deposit
-    ArdisTransaction.create(current_account.account_type.to_sym => current_account,
-                            kind: :refill,
-                            amount: params[:account][:score].to_f)
     redirect_to account_path
   end
 
@@ -40,7 +33,7 @@ class AccountsController < ApplicationController
       @account = current_account
     end
 
-    def model 
+    def model
       Account
     end
 end

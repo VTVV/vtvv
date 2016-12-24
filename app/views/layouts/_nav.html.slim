@@ -83,6 +83,17 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
               = link_to account_path do
                 i.fa.fa-credit-card
                 | Account
+          - if current_account && current_account.underwriter?
+            li
+              a href="#"
+                i.fa.fa-bar-chart-o.fa-fw
+                | Refill
+                span.fa.arrow
+              ul.nav.nav-second-level
+                li
+                  = link_to 'Borrowers', borrowers_underwriter_refills_path
+                li
+                  = link_to 'Investors', investors_underwriter_refills_path
           - if current_account && current_account.borrower_or_investor?
             li
               a href="#"

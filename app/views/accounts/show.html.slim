@@ -22,21 +22,12 @@
         h3
           = "Your balance is #{humanized_money_with_symbol @account.score}"
     .row
-      .col-lg-6
-        h1 Deposit money
-        = form_for @account, url: deposit_account_path, method: :post do |f|
-          .row
-            .col-md-6.mt-20
-              = f.number_field :score, placeholder: 'Amount', class: 'form-control', step: :any
-          .row
-            .col-md-6.mt-20
-              = f.submit 'Deposit', class: 'btn btn-primary'
-      .col-lg-6
+      .col-lg-12
         h1 Withdraw money
         = form_for @account, url: withdraw_account_path, method: :post do |f|
           .row
             .col-md-6.mt-20
-              = f.number_field :score, placeholder: 'Amount', class: 'form-control', step: :any
+              = f.number_field :score, placeholder: 'Amount', class: 'form-control', required: true, min: 30, max: @account.score
           .row
             .col-md-6.mt-20
               = f.submit 'Withdraw', class: 'btn btn-primary'

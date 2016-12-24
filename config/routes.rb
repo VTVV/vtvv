@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   resource :home, only: 'show'
 
   root to: 'home#show'
@@ -15,7 +14,6 @@ Rails.application.routes.draw do
   resource :profile, only: [:edit, :update]
   resource :account, only: [:show, :create] do
     post :change
-    post :deposit
     post :withdraw
   end
   resources :support_requests, only: [:show, :index, :create, :new]
@@ -40,6 +38,16 @@ Rails.application.routes.draw do
   namespace :underwriter do
     resource :dashboard, only: [:show]
     resources :borrower_requests, only: [:show, :update]
+    resources :refills, only: [:index] do
+      collection do
+        get :borrowers
+        get :investors
+      end
+      member do
+        post :borrower_refill
+        post :investor_refill
+      end
+    end
   end
 
   namespace :support do
