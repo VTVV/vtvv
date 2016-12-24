@@ -27,6 +27,13 @@ class AccountsController < ApplicationController
     redirect_to account_path
   end
 
+  def refund
+    amount = params[:account][:score].to_f
+    DebtsService.pay_off(current_account, amount)
+    flash[:success] = 'Refund is successfully done!'
+    redirect_to account_path
+  end
+
   private
 
     def entity

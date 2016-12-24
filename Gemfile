@@ -41,6 +41,7 @@ gem 'pry-rails'
 gem 'mini_magick'
 gem 'carrierwave'
 gem 'pundit'
+gem 'whenever'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

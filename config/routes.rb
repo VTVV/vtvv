@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resource :account, only: [:show, :create] do
     post :change
     post :withdraw
+    post :refund
   end
   resources :support_requests, only: [:show, :index, :create, :new]
   resources :support_replies, only: [:create]

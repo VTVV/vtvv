@@ -15,4 +15,12 @@ class Account < ApplicationRecord
   def borrower_or_investor?
     borrower? || investor?
   end
+
+  def update_debts_statuses
+    borrower_requests.where(status: :active).each do |request|
+      request.debts.where.not(status: :closed).each do |debt|
+        debt.try_update_status
+      end
+    end
+  end
 end

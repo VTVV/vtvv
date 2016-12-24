@@ -22,7 +22,7 @@
           = "Your balance is #{humanized_money_with_symbol @account.score}"
     hr
     .row
-      .col-lg-12
+      .col-lg-6
         h2 Withdraw money
         = form_for @account, url: withdraw_account_path, method: :post do |f|
           .row
@@ -31,3 +31,13 @@
           .row
             .col-md-6.mt-20
               = f.submit 'Withdraw', class: 'btn btn-primary'
+      - if current_account.borrower?
+        .col-lg-6
+          h2 Refund money
+          = form_for @account, url: refund_account_path, method: :post do |f|
+            .row
+              .col-md-6.mt-20
+                = f.number_field :score, placeholder: 'Amount', class: 'form-control', required: true, min: 30, max: @account.score
+            .row
+              .col-md-6.mt-20
+                = f.submit 'Refund', class: 'btn btn-primary'

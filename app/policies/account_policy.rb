@@ -18,4 +18,8 @@ class AccountPolicy < ApplicationPolicy
   def withdraw?
     is_borrower_or_investor?
   end
+
+  def refund?
+    user.account.borrower?
+  end
 end

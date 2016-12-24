@@ -8,6 +8,7 @@ class ArdisTransaction < ApplicationRecord
 
   belongs_to :borrower, class_name: 'Account', optional: true
   belongs_to :investor, class_name: 'Account', optional: true
+  has_and_belongs_to_many :debts
 
   validate :check_account_score
 
@@ -107,7 +108,13 @@ class ArdisTransaction < ApplicationRecord
 
   def refund
     transaction do
-      ## TODO
+      amount_to_refund = amount.dollars
+      borrower_amount = borrower.score.dollars
+      updated_borrower_score = borrower_amount - amount_to_refund
+      investor_amount = investor.score.dollars
+      updated_investor_score = investor_amount + amount_to_refund
+      borrower.update(score: Money.new(updated_borrower_score * 100, 'USD'))
+      investor.update(score: Money.new(updated_investor_score * 100, 'USD'))
     end
   end
 end
