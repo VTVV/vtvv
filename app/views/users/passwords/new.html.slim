@@ -1,0 +1,13 @@
+.row
+  .col-lg-12
+    h1.page-header Reset password
+.row
+  = form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :post}) do |f|
+    .row.form-group
+      .col-xs-4
+      .col-xs-4
+        = f.email_field :email, autofocus: true, placeholder: 'Email', class: 'form-control'
+    .row.form-group.top-margin-20
+      .col-xs-4
+      .col-xs-4
+        = f.submit 'Reset password', class: 'btn btn-lg btn-success'
