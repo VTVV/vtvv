@@ -27,7 +27,7 @@ class InvestorRequest < ApplicationRecord
   end
 
   def amount_to_complete
-    beginning_amount = self.amount
+    beginning_amount = self.amount.dollars
     invested_amount = self.debts.reduce(0) do |sum, debt|
       money = debt.ardis_transactions.where(kind: :loan).reduce(0) do |loan_sum, loan|
         loan_sum += loan.amount.dollars
