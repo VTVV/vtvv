@@ -32,8 +32,8 @@ module DebtsService
   end
 
   def self.amount_for_loan(investor_request, borrower_request)
-    investor_amount = investor_request.amount.dollars
-    borrower_amount = borrower_request.amount.dollars
+    investor_amount = investor_request.amount_to_complete
+    borrower_amount = borrower_request.amount_to_complete
     [borrower_amount, investor_amount].min
   end
 

@@ -24,6 +24,19 @@ class BorrowerRequest < ApplicationRecord
     end
   end
 
+  def amount_to_complete
+    beginning_amount = self.amount
+    borrowed_amount = self.debts.reduce(0) do |sum, debt|
+      money = debt.ardis_transactions.where(status: :loan).reduce(0) do |sum, loan|
+        sum += loan.amount
+        sum
+      end
+      sum += money
+      sum
+    end
+    beginning_amount - borrowed_amount
+  end
+
   private
 
   def integral_duration
