@@ -85,4 +85,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.autoload_paths += %W(#{config.root}/app/services)
+  config.action_mailer.default_url_options = { :host => ENV['MAILER_URL'] }
 end
