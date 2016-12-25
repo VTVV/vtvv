@@ -16,6 +16,7 @@ class Debt < ApplicationRecord
         money_borrowed: money_borrowed,
         money_to_refund: money_to_refund,
         money_refunded: money_refunded,
+        money_remain_to_refund: money_remain_to_refund,
         status: status.to_s
     }
   end
@@ -54,6 +55,10 @@ class Debt < ApplicationRecord
     ardis_transactions.where(kind: :refund).reduce(0,&map_money)
   end
 
+  def money_remain_to_refund
+    money_to_refund - money_refunded
+  end
+
   def weeks_difference
     (DateTime.now - self.created_at.to_datetime) / 1.week
   end
@@ -68,8 +73,12 @@ class Debt < ApplicationRecord
   end
 
   def update_requests_statuses
-    borrower_request.update(status: BorrowerRequest.statuses[:active])
-    investor_request.update(status: InvestorRequest.statuses[:active])
+    if borrower_request.status == 'pending'
+      borrower_request.update(status: BorrowerRequest.statuses[:active])
+    end
+    if investor_request.status == 'pending'
+      investor_request.update(status: InvestorRequest.statuses[:active])
+    end
   end
 
   def set_history

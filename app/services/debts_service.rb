@@ -51,7 +51,7 @@ module DebtsService
         request.debts.each do |debt|
           break if amount_remain == 0
           unless debt.status == 'filled'
-            money_to_refund = debt.stats[:money_to_refund]
+            money_to_refund = debt.stats[:money_remain_to_refund]
             amount_to_pay = [money_to_refund, amount_remain].min
             amount_remain -= amount_to_pay
             transaction = ArdisTransaction.create(borrower: debt.borrower_request.account,
@@ -61,6 +61,7 @@ module DebtsService
             if transaction.valid?
               transaction.save
               debt.ardis_transactions << transaction
+              debt.save
             end
           end
         end
