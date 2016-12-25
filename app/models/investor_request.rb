@@ -42,7 +42,7 @@ class InvestorRequest < ApplicationRecord
   private
 
   def check_status
-    money_borrowed = debts.reduce do |sum, debt|
+    money_borrowed = debts.reduce(0) do |sum, debt|
                        sum += debt.stats[:money_borrowed]
                        sum
     end
