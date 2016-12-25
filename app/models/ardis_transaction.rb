@@ -94,7 +94,6 @@ class ArdisTransaction < ApplicationRecord
   end
 
   def loan
-    10.times { puts 'here' }
     transaction do
       amount_to_loan = amount.dollars
       borrower_amount = borrower.score.dollars
