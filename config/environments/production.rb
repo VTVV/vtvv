@@ -86,4 +86,15 @@ Rails.application.configure do
 
   config.autoload_paths += %W(#{config.root}/app/services)
   config.action_mailer.default_url_options = { :host => ENV['MAILER_URL'] }
+
+  ActionMailer::Base.smtp_settings = {
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => ENV['MAILER_URL'],
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
+
 end
