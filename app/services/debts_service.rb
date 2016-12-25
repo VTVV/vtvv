@@ -16,9 +16,9 @@ module DebtsService
 
   def self.create_loan(investor_request, borrower_request)
     amount_for_loan = DebtsService.amount_for_loan(investor_request, borrower_request)
-    debt = Debt.new(borrower_request: borrower_request,
-                    investor_request: investor_request,
-                    status: :active)
+    debt = Debt.find_or_initialize_by(borrower_request: borrower_request,
+                                      investor_request: investor_request,
+                                      status: :active)
     transaction = ArdisTransaction.new(kind: :loan,
                                        amount: amount_for_loan,
                                        borrower: borrower_request.account,
