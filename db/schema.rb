@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161225162046) do
+ActiveRecord::Schema.define(version: 20161224180000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,16 +87,6 @@ ActiveRecord::Schema.define(version: 20161225162046) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["debt_id"], name: "index_debts_status_histories_on_debt_id", using: :btree
-  end
-
-  create_table "documents", force: :cascade do |t|
-    t.integer  "account_id"
-    t.text     "note",       default: "", null: false
-    t.string   "file",                    null: false
-    t.integer  "status",     default: 0,  null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.index ["account_id"], name: "index_documents_on_account_id", using: :btree
   end
 
   create_table "frequently_asked_questions", force: :cascade do |t|
@@ -201,6 +191,5 @@ ActiveRecord::Schema.define(version: 20161225162046) do
   add_foreign_key "debts", "borrower_requests"
   add_foreign_key "debts", "investor_requests"
   add_foreign_key "debts_status_histories", "debts"
-  add_foreign_key "documents", "accounts"
   add_foreign_key "profiles", "users"
 end

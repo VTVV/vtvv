@@ -1,3 +1,0 @@
-class DocumentPolicy < BasePolicy
-
-end

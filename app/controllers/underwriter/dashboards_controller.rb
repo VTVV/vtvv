@@ -1,4 +1,4 @@
-class Underwriter::DashboardsController < Underwriter::ApplicationController
+class Underwriter::DashboardsController < ApplicationController
 
   def show
     @borrower_requests = BorrowerRequest.includes(account: { user: [:profile]}).all

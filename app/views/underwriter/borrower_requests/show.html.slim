@@ -45,12 +45,10 @@
         td Salary
         td
           = @borrower_request.account.user.profile.salary
-      - @borrower_request.account.documents.each do |d|
-        tr
-          td
-            = d.note
-          td
-            = image_tag(d.file.url, class: 'profile-image')
+      tr
+        td Passport scan
+        td
+          = image_tag(@borrower_request.account.user.profile.passport.url, class: 'profile-image')
 
 
     = form_for @borrower_request, url: underwriter_borrower_request_path(@borrower_request) do |f|
