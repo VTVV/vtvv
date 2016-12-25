@@ -21,6 +21,12 @@
         h3
           = "Your balance is #{humanized_money_with_symbol @account.score}"
     hr
+    - if current_account.borrower?
+      .row
+        .col-lg-6.well.ml-15
+          h3
+            = "Your rating of trust is #{(@account.credit_score.score * 100).round(2)} %"
+      hr
     .row
       .col-lg-6
         h2 Withdraw money
