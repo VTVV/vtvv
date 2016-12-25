@@ -27,9 +27,9 @@ class BorrowerRequest < ApplicationRecord
   def amount_to_complete
     beginning_amount = self.amount
     borrowed_amount = self.debts.reduce(0) do |sum, debt|
-      money = debt.ardis_transactions.where(kind: :loan).reduce(0) do |sum, loan|
-        sum += loan.amount
-        sum
+      money = debt.ardis_transactions.where(kind: :loan).reduce(0) do |loan_sum, loan|
+        loan_sum += loan.amount
+        loan_sum
       end
       sum += money
       sum
