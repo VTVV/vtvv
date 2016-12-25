@@ -18,10 +18,13 @@
           - @requests.each do |request|
             tr.odd.gradeX
               td
-                = request.amount
-                span &nbsp;$
-              td = request.amount_to_complete
-                span &nbsp;$
+                = request.amount.dollars
+                span
+                  | &nbsp; $
+              td
+                = request.amount_to_complete
+                span
+                  | &nbsp; $
               td = request.from_rate
               td = request.to_rate
               td

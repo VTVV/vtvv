@@ -2,11 +2,11 @@ module DebtsService
 
   def self.process_investor_requests
     InvestorRequest.where(status: :active).order(created_at: :asc).each do |request|
-      DebtsService.process_requests(request)
+      DebtsService.process_request(request)
     end
   end
 
-  def self.process_requests(investor_request)
+  def self.process_request(investor_request)
     borrowers_requests = RequestsService.find_appropriate_borrower_requests(investor_request)
     borrowers_requests.each do |borrower_request|
       DebtsService.create_loan(investor_request, borrower_request)
@@ -32,6 +32,8 @@ module DebtsService
   end
 
   def self.amount_for_loan(investor_request, borrower_request)
+    investor_request.reload
+    borrower_request.reload
     investor_amount = investor_request.amount_to_complete
     borrower_amount = borrower_request.amount_to_complete
     [borrower_amount, investor_amount].min
