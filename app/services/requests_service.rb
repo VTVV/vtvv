@@ -12,7 +12,7 @@ module RequestsService
                   cs = br.account.credit_score.score
                   cs_ok = (cs >= lowest_cs && cs <= highest_cs)
                   ### by status
-                  status_ok = (br.status == 'pending')
+                  status_ok = (br.status == 'pending' or br.status == 'active')
                   ### by date
                   duration_ok = br.duration < ((investor_request.due_date - DateTime.now) / 1.week)
                   status_ok && cs_ok && duration_ok
