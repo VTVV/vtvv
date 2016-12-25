@@ -2,14 +2,14 @@
   .col-lg-12
     h1.page-header TimeTravel
 .row
-  = render partial: 'layouts/errors', locals: {errors: @errors}
-
-  .row.top-margin-20
-    .col-md-12
-      = date_field_tag @date, '01/01/2014', class: 'special_input'
-
-  .row.top-margin-20
-    .col-xs-6
-      = button_to "Travel", action: "travel"
-
-  = "#{Time.now}"
+  .col-md-12
+    = render partial: 'layouts/errors', locals: {errors: @errors}
+    = form_for :travel, url: admin_time_travels_path do |f|
+      .row.mt-20
+        .col-md-5
+          = f.date_field :date, class: 'form-control'
+      .row.mt-20
+        .col-md-5
+            = f.submit 'Move on', class: 'btn btn-primary'
+    span.label.label-info
+      = "#{DateTime.now}"

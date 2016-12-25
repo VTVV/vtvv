@@ -7,20 +7,8 @@ class Admin::TimeTravelsController < Admin::ApplicationController
   end
 
   def create
-
+    Timecop.travel(params[:travel][:date])
+    redirect_to new_admin_time_travels_path
   end
 
-  def show
-
-  end
-
-  def travel
-    # TODO
-    Timecop.travel(@date)
-
-  end
-
-  def travel_back
-    # TODO
-  end
 end
