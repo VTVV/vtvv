@@ -1,0 +1,47 @@
+.row
+  .col-lg-12
+    h1.page-header User Info
+.row
+  = render partial: 'layouts/errors', locals: {errors: @errors}
+  .col-md-12
+    table.table
+      tr
+        td First name
+        td
+          = @user.profile.first_name
+      tr
+        td Last name
+        td
+          = @user.profile.last_name
+      tr
+        td Sex
+        td
+          = @user.profile.sex
+      tr
+        td Nationality
+        td
+          = @user.profile.nationality
+      tr
+        td Address
+        td
+          = @user.profile.address
+      tr
+        td Home phone
+        td
+          = @user.profile.home_phone
+      tr
+        td Mobile phone
+        td
+          = @user.profile.mobile_phone
+      tr
+        td Company name
+        td
+          = @user.profile.company_name
+      tr
+        td Job position
+        td
+          = @user.profile.job_position
+      tr
+        td Salary
+        td
+          = @user.profile.salary

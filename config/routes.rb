@@ -35,9 +35,8 @@ Rails.application.routes.draw do
     resource :dashboard, only: [:show] do
       post :ban
     end
-    resource :time_travels, only: [:new, :create, :show] do
-      post :travel
-    end
+    resources :user_info, only: [:show]
+    resource :time_travels, only: [:new, :create]
   end
 
   namespace :underwriter do

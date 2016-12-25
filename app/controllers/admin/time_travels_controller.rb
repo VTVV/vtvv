@@ -1,3 +1,4 @@
+
 class Admin::TimeTravelsController < Admin::ApplicationController
 
 
@@ -7,20 +8,13 @@ class Admin::TimeTravelsController < Admin::ApplicationController
   end
 
   def create
+    date = params[:travel][:date]
 
+    unless date < DateTime.now
+      Timecop.travel(date)
+    end
+
+    redirect_to new_admin_time_travels_path
   end
 
-  def show
-
-  end
-
-  def travel
-    # TODO
-    Timecop.travel(@date)
-
-  end
-
-  def travel_back
-    # TODO
-  end
 end

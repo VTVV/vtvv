@@ -14,7 +14,7 @@
         -u.accounts.each do |account|
           tr
             td
-              = "#{u.profile.first_name} #{u.profile.last_name}"
+              = link_to "#{u.profile.first_name} #{u.profile.last_name}", admin_user_info_path(u)
             td
               = u.email
             td
