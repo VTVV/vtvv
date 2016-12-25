@@ -12,7 +12,7 @@ class ArdisTransaction < ApplicationRecord
 
   validate :check_account_score
 
-  after_save :process_money
+  after_create :process_money
 
   private
 
@@ -94,6 +94,7 @@ class ArdisTransaction < ApplicationRecord
   end
 
   def loan
+    10.times { puts 'here' }
     transaction do
       amount_to_loan = amount.dollars
       borrower_amount = borrower.score.dollars
