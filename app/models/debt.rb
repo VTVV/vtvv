@@ -28,8 +28,12 @@ class Debt < ApplicationRecord
       end
       if current_stats[:money_to_refund] <= current_stats[:money_refunded]
         update(status: Debt.statuses[:closed])
-        borrower_request.update(status: BorrowerRequest.statuses[:completed])
-        investor_request.update(status: InvestorRequest.statuses[:completed])
+        if borrower_request.amount_to_complete == 0
+          borrower_request.update(status: BorrowerRequest.statuses[:completed])
+        end
+        if investor_request.amount_to_complete == 0
+          investor_request.update(status: InvestorRequest.statuses[:completed])
+        end
       end
     end
   end
