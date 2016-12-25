@@ -189,12 +189,7 @@ ActiveRecord::Schema.define(version: 20161224180000) do
   add_foreign_key "ardis_transactions_debts", "ardis_transactions"
   add_foreign_key "ardis_transactions_debts", "debts"
   add_foreign_key "debts", "borrower_requests"
-<<<<<<< 29784d74e72b50cc1f7f4d77500b3f20318b7657
   add_foreign_key "debts", "investor_requests"
-=======
-  add_foreign_key "debts_investor_requests", "debts"
-  add_foreign_key "debts_investor_requests", "investor_requests"
->>>>>>> Fix default mailer url
   add_foreign_key "debts_status_histories", "debts"
   add_foreign_key "profiles", "users"
 end
