@@ -20,7 +20,6 @@ Rails.application.routes.draw do
   end
   resources :support_requests, only: [:show, :index, :create, :new]
   resources :support_replies, only: [:create]
-  resources :documents
 
   namespace :borrower do
     resource :dashboard, only: [:show]
@@ -51,7 +50,6 @@ Rails.application.routes.draw do
         post :investor_refill
       end
     end
-    resources :documents
   end
 
   namespace :support do

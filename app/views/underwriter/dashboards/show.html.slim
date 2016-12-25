@@ -16,12 +16,12 @@
           td
             = link_to "#{b.account.user.profile.first_name} #{b.account.user.profile.last_name}", underwriter_borrower_request_path(b)
           td
-            = link_to b.account.user.email, underwriter_borrower_request_path(b)
+            = b.account.user.email
           td
-            = link_to b.amount, underwriter_borrower_request_path(b)
+            = b.amount
           td
-            = link_to b.duration, underwriter_borrower_request_path(b)
+            = b.duration
           td
-            = link_to b.status, underwriter_borrower_request_path(b)
+            = b.status
           td
-            = link_to b.created_at, underwriter_borrower_request_path(b)
+            = b.created_at

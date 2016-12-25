@@ -81,19 +81,8 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
           - if current_account && current_account.borrower_or_investor?
             li
               = link_to account_path do
-                i.fa.fa-credit-card.fa-fw
+                i.fa.fa-credit-card
                 | Account
-              li
-                a href="#"
-                  i.fa.fa-bar-chart-o.fa-fw
-                  | Documents
-                  span.fa.arrow
-                ul.nav.nav-second-level
-                  li
-                    = link_to 'My documents', documents_path
-                  li
-                    = link_to 'New document', new_document_path
-
           - if current_account && current_account.underwriter?
             li
               a href="#"
@@ -105,8 +94,6 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
                   = link_to 'Borrowers', borrowers_underwriter_refills_path
                 li
                   = link_to 'Investors', investors_underwriter_refills_path
-            li
-              = link_to 'Documents', underwriter_documents_path
           - if current_account && current_account.borrower_or_investor?
             li
               a href="#"
