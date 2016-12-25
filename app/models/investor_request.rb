@@ -26,18 +26,6 @@ class InvestorRequest < ApplicationRecord
     status == 'completed'
   end
 
-  private
-
-  def check_status
-    money_borrowed = debts.reduce do |sum, debt|
-                       sum += debt.stats[:money_borrowed]
-                       sum
-    end
-    if active? && (money_borrowed == amount.dollars)
-      update(status: :completed)
-    end
-  end
-
   def amount_to_complete
     beginning_amount = self.amount
     invested_amount = self.debts.reduce(0) do |sum, debt|
@@ -49,6 +37,18 @@ class InvestorRequest < ApplicationRecord
       sum
     end
     beginning_amount - invested_amount
+  end
+
+  private
+
+  def check_status
+    money_borrowed = debts.reduce do |sum, debt|
+                       sum += debt.stats[:money_borrowed]
+                       sum
+    end
+    if active? && (money_borrowed == amount.dollars)
+      update(status: :completed)
+    end
   end
 
   def validate_due_date
