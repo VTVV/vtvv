@@ -8,6 +8,7 @@
       tbody
         tr
           th Amount
+          th Amount To Complete
           th From Rate
           th To Rate
           th Status
@@ -18,6 +19,8 @@
             tr.odd.gradeX
               td
                 = request.amount
+                span &nbsp;$
+              td = request.amount_to_complete
                 span &nbsp;$
               td = request.from_rate
               td = request.to_rate

@@ -9,6 +9,7 @@
           th Amount
           th Status
           th Sent Date
+          th Amount To Complete
           th Duration(weeks)
       tbody
         - if @requests.any?
@@ -20,6 +21,7 @@
               td
                 span.label.label-info = request.status
               td = request.created_at
+              td = request.amount_to_complete
               td = request.duration
         - else
           h1 No requests yet.
