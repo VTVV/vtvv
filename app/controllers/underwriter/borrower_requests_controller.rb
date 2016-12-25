@@ -1,4 +1,4 @@
-class Underwriter::BorrowerRequestsController < ApplicationController
+class Underwriter::BorrowerRequestsController < Underwriter::ApplicationController
 
   def show
     @borrower_request = BorrowerRequest.find(params[:id])

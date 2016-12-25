@@ -13,6 +13,6 @@ module ProfileData
                                     :address,
                                     :salary,
                                     :family_status,
-                                    :birth_date, :passport)
+                                    :birth_date)
   end
 end
