@@ -1,0 +1,11 @@
+= render partial: 'layouts/errors', locals: {errors: errors}
+.col-md-12
+  = form_for document, url: documents_path do |f|
+    .form-group
+      label Describe your document:
+      = f.text_area :note, size: '60x12', class: 'form-control'
+    .form-group
+      label Attach document:
+      = f.file_field :file, class: 'form-control'
+
+    =f.submit 'Document', class: 'btn btn-primary'
