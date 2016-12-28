@@ -18,8 +18,10 @@ class ApplicationController < ActionController::Base
   private
 
     def authenticate_inviter!
-      unless current_account.admin?
+      if !current_account.admin?
         not_found
+      else
+        current_user
       end
     end
 
