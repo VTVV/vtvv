@@ -11,5 +11,12 @@ class Borrower::DashboardsController < Borrower::ApplicationController
                           .where(borrower_id: current_account.id)
                           .where(kind: :refund)
                           .reduce(0, &collect_dollars)
+    @money_to_refund = current_account.borrower_requests.reduce(0) do |sum, request|
+      sum += request.debts.reduce(0) do |debt_sum, debt|
+        debt_sum += debt.stats[:money_remain_to_refund]
+        debt_sum
+      end
+      sum
+    end
   end
 end

@@ -38,6 +38,9 @@ Rails.application.routes.draw do
     end
     resources :user_info, only: [:show]
     resource :time_travels, only: [:new, :create]
+    resources :stats, only: [:index]
+    resources :borrowers_stats, only: [:index, :show]
+    resources :investors_stats, only: [:index, :show]
   end
 
   namespace :underwriter do

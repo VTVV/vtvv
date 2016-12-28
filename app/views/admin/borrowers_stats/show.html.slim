@@ -1,0 +1,131 @@
+.row
+  .col-lg-12
+    h1.page-header = @borrower.user.email
+= form_for :borrower, url: admin_borrowers_stat_path(@borrower), method: :get do |f|
+  .row
+    .col-md-12
+      .row
+        .col-md-12
+          .row
+            .col-md-1
+              span.lead
+                | From
+            .col-md-4
+              = f.date_field :from, value: @from, class: 'form-control'
+            .col-md-4
+              = f.date_field :to, value: @to, class: 'form-control'
+            .col-md-2
+              span.lead
+                | To
+      hr
+      .row
+        .col-md-12
+          .row
+            .col-md-2
+              .row
+                .col-md-12
+                  span.lead
+                    | Trusted Score
+              .row
+                .col-md-12
+                  span.lead
+                    = @trusted_score
+                  span.lead
+                    | %
+            .col-md-2
+              .row
+                .col-md-12
+                  span.lead
+                    | Refilled
+              .row
+                .col-md-12
+                  span.lead
+                    = @common_stats[:refill]
+                  span.lead
+                    | &nbsp;$
+            .col-md-2
+              .row
+                .col-md-12
+                  span.lead
+                    | Withdrawn
+              .row
+                .col-md-12
+                  span.lead
+                    = @common_stats[:withdrawal]
+                  span.lead
+                    | &nbsp;$
+            .col-md-2
+              .row
+                .col-md-12
+                  span.lead
+                    | Borrowed
+              .row
+                .col-md-12
+                  span.lead
+                    = @common_stats[:loan]
+                  span.lead
+                    | &nbsp;$
+            .col-md-2
+              .row
+                .col-md-12
+                  span.lead
+                    | Refunded
+              .row
+                .col-md-12
+                  span.lead
+                    = @common_stats[:refund]
+                  span.lead
+                    | &nbsp;$
+      hr
+      .row
+        .col-md-12
+          .row
+            .col-md-2
+              .row
+                .col-md-12
+                  span.lead
+                    | Requests
+              .row
+                .col-md-12
+                  span.lead
+                    = @requests_stats[:all].count
+            .col-md-2
+              .row
+                .col-md-12
+                  span.lead
+                    | Pending
+              .row
+                .col-md-12
+                  span.lead
+                    = @requests_stats[:pending].count
+            .col-md-2
+              .row
+                .col-md-12
+                  span.lead
+                    | Active
+              .row
+                .col-md-12
+                  span.lead
+                    = @requests_stats[:active].count
+            .col-md-2
+              .row
+                .col-md-12
+                  span.lead
+                    | Completed
+              .row
+                .col-md-12
+                  span.lead
+                    = @requests_stats[:completed].count
+            .col-md-2
+              .row
+                .col-md-12
+                  span.lead
+                    | Overdue
+              .row
+                .col-md-12
+                  span.lead
+                    = @requests_stats[:overdue].count
+      hr
+  .row
+    .col-md-2
+      = f.submit 'Apply', class: 'btn btn-default'
