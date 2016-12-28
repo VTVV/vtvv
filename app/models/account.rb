@@ -4,6 +4,7 @@ class Account < ApplicationRecord
   has_many :borrower_requests
   has_many :investor_requests
   has_many :ardis_transactions
+  has_many :documents
   has_one :profile, through: :user
   enum account_type: [:borrower, :investor, :admin, :underwriter, :support]
 

@@ -1,6 +1,5 @@
 class Profile < ApplicationRecord
   belongs_to :user
-  mount_uploader :passport, StandartUploader
 
   after_save :update_rot
 
