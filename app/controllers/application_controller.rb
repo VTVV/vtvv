@@ -17,6 +17,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+    def authenticate_inviter!
+      if !current_account.admin?
+        not_found
+      else
+        current_user
+      end
+    end
+
     def current_profile
       @current_profile ||= current_user.try(:profile) || Profile.new
     end
@@ -32,7 +40,10 @@ class ApplicationController < ActionController::Base
     end
 
     def check_if_has_account
-      if current_user && current_user.accounts.count == 0 && request.env['PATH_INFO'] != building_profile_path(:choose_account)
+      if current_user &&
+        current_user.accounts.count == 0 &&
+        request.env['PATH_INFO'] != building_profile_path(:choose_account) &&
+        request.env['PATH_INFO'] != destroy_user_session_path
         redirect_to building_profile_path(:choose_account)
       end
     end
