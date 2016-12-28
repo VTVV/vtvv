@@ -13,7 +13,7 @@ module RotService
     else
       account.credit_score = CreditScore.new score: 0, status: CreditScore.statuses[:approved]
     end
-    account.credit_score.score *= weight[:credit_history]
+    account.credit_score.score *= WEIGHT[:credit_history]
     account.save
   end
 
@@ -30,6 +30,10 @@ module RotService
     '''
 
     user_account = user.account
+    if user_account.credit_score.nil?
+      create_user_score(user)
+      user_account = user.account
+    end
 
     # credit score consists of three parts: ROT = w1*credit_history + w2*profile + w3*credit_history_ardis
     # w1 = 0.3 w2 = 0.3 w3 = 0.4
