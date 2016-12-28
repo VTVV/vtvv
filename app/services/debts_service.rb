@@ -1,7 +1,7 @@
 module DebtsService
 
   def self.process_investor_requests
-    InvestorRequest.where(status: [:active, :pending] ).order(created_at: :asc).each do |request|
+    InvestorRequest.where(status: [:active, :pending ] ).order(created_at: :asc).each do |request|
       DebtsService.process_request(request)
     end
   end
