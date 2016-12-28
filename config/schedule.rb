@@ -27,5 +27,5 @@ every 2.hour do
 end
 
 every 1.hour do
-  runnder 'RotService.update_borrowers_scores'
+  runner 'RotService.update_borrowers_scores'
 end
