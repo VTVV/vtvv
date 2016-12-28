@@ -12,7 +12,7 @@ class ArdisTransaction < ApplicationRecord
 
   validate :check_account_score
 
-  after_save :process_money
+  after_create :process_money
 
   private
 

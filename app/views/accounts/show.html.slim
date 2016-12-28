@@ -5,15 +5,15 @@
       | &nbsp;
       span.label.label-info
         = @account.account_type
-  .col-lg-2
-    .row.mt-40
-      .col-lg-12
-      - if current_user.accounts.count == 2
-        = form_for @account, url: change_account_path, method: :post do |f|
-          = f.submit 'Change Account', class: 'btn btn-success'
-      - else
-        = form_for @account, url: account_path, method: :post do |f|
-          = f.submit 'Add Account', class: 'btn btn-success'
+  /.col-lg-2
+  /  .row.mt-40
+  /    .col-lg-12
+  /    - if current_user.accounts.count == 2
+  /      = form_for @account, url: change_account_path, method: :post do |f|
+  /        = f.submit 'Change Account', class: 'btn btn-success'
+  /    - else
+  /      = form_for @account, url: account_path, method: :post do |f|
+  /        = f.submit 'Add Account', class: 'btn btn-success'
 .row
   .col-lg-12
     .row
@@ -21,6 +21,12 @@
         h3
           = "Your balance is #{humanized_money_with_symbol @account.score}"
     hr
+    - if current_account.borrower?
+      .row
+        .col-lg-6.well.ml-15
+          h3
+            = "Your rating of trust is #{(@account.credit_score.score * 100).round(2)} %"
+      hr
     .row
       .col-lg-6
         h2 Withdraw money

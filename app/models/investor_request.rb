@@ -26,10 +26,23 @@ class InvestorRequest < ApplicationRecord
     status == 'completed'
   end
 
+  def amount_to_complete
+    beginning_amount = self.amount.dollars
+    invested_amount = self.debts.reduce(0) do |sum, debt|
+      money = debt.ardis_transactions.where(kind: :loan).reduce(0) do |loan_sum, loan|
+        loan_sum += loan.amount.dollars
+        loan_sum
+      end
+      sum += money
+      sum
+    end
+    beginning_amount - invested_amount
+  end
+
   private
 
   def check_status
-    money_borrowed = debts.reduce do |sum, debt|
+    money_borrowed = debts.reduce(0) do |sum, debt|
                        sum += debt.stats[:money_borrowed]
                        sum
     end

@@ -7,6 +7,7 @@
       thead
         tr
           th Amount
+          th Amount To Complete
           th Status
           th Sent Date
           th Duration(weeks)
@@ -16,6 +17,9 @@
             tr.odd.gradeX
               td
                 = request.amount
+                span &nbsp;$
+              td
+                = request.amount_to_complete
                 span &nbsp;$
               td
                 span.label.label-info = request.status

@@ -1,0 +1,15 @@
+.row
+  .col-lg-12
+    h1.page-header TimeTravel
+.row
+  .col-md-12
+    = render partial: 'layouts/errors', locals: {errors: @errors}
+    = form_for :travel, url: admin_time_travels_path do |f|
+      .row.mt-20
+        .col-md-5
+          = f.date_field :date,  value: Date.today, class: 'form-control'
+      .row.mt-20
+        .col-md-5
+          = f.submit 'Move on', class: 'btn btn-primary'
+    span.label.label-info
+      = "#{DateTime.now}"

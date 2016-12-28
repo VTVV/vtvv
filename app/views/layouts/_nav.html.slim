@@ -44,6 +44,10 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
               = link_to self.send("#{current_account.account_type}_dashboard_path") do
                 i.fa.fa-dashboard.fa-fw
                 | Dashboard
+          - if current_account and current_account.admin?
+            li
+              = link_to 'Time Travel', new_admin_time_travels_path
+
           - if current_account and current_account.borrower?
             li
               a href="#"

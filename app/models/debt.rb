@@ -16,6 +16,7 @@ class Debt < ApplicationRecord
         money_borrowed: money_borrowed,
         money_to_refund: money_to_refund,
         money_refunded: money_refunded,
+        money_remain_to_refund: money_remain_to_refund,
         status: status.to_s
     }
   end
@@ -26,13 +27,14 @@ class Debt < ApplicationRecord
       if weeks_difference - borrower_request.duration >= 0
         update(status: Debt.statuses[:overdue])
       end
-      puts current_stats[:money_to_refund].to_f
-      puts current_stats[:money_refunded].to_f
       if current_stats[:money_to_refund] <= current_stats[:money_refunded]
-        puts 'here'
         update(status: Debt.statuses[:closed])
-        borrower_request.update(status: BorrowerRequest.statuses[:completed])
-        investor_request.update(status: InvestorRequest.statuses[:completed])
+        if borrower_request.amount_to_complete == 0
+          borrower_request.update(status: BorrowerRequest.statuses[:completed])
+        end
+        if investor_request.amount_to_complete == 0
+          investor_request.update(status: InvestorRequest.statuses[:completed])
+        end
       end
     end
   end
@@ -53,6 +55,10 @@ class Debt < ApplicationRecord
     ardis_transactions.where(kind: :refund).reduce(0,&map_money)
   end
 
+  def money_remain_to_refund
+    money_to_refund - money_refunded
+  end
+
   def weeks_difference
     (DateTime.now - self.created_at.to_datetime) / 1.week
   end
@@ -67,8 +73,12 @@ class Debt < ApplicationRecord
   end
 
   def update_requests_statuses
-    borrower_request.update(status: BorrowerRequest.statuses[:active])
-    investor_request.update(status: InvestorRequest.statuses[:active])
+    if borrower_request.status == 'pending'
+      borrower_request.update(status: BorrowerRequest.statuses[:active])
+    end
+    if investor_request.status == 'pending'
+      investor_request.update(status: InvestorRequest.statuses[:active])
+    end
   end
 
   def set_history

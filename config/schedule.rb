@@ -25,3 +25,7 @@ set :output, "~/Study/cron.log"
 every 2.hour do
   runner 'DebtsService.process_investor_requests'
 end
+
+every 1.hour do
+  runnder 'RotService.update_borrowers_scores'
+end

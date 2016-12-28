@@ -2,11 +2,11 @@ module DebtsService
 
   def self.process_investor_requests
     InvestorRequest.where(status: :active).order(created_at: :asc).each do |request|
-      DebtsService.process_requests(request)
+      DebtsService.process_request(request)
     end
   end
 
-  def self.process_requests(investor_request)
+  def self.process_request(investor_request)
     borrowers_requests = RequestsService.find_appropriate_borrower_requests(investor_request)
     borrowers_requests.each do |borrower_request|
       DebtsService.create_loan(investor_request, borrower_request)
@@ -16,9 +16,9 @@ module DebtsService
 
   def self.create_loan(investor_request, borrower_request)
     amount_for_loan = DebtsService.amount_for_loan(investor_request, borrower_request)
-    debt = Debt.new(borrower_request: borrower_request,
-                    investor_request: investor_request,
-                    status: :active)
+    debt = Debt.find_or_initialize_by(borrower_request: borrower_request,
+                                      investor_request: investor_request,
+                                      status: :active)
     transaction = ArdisTransaction.new(kind: :loan,
                                        amount: amount_for_loan,
                                        borrower: borrower_request.account,
@@ -32,8 +32,10 @@ module DebtsService
   end
 
   def self.amount_for_loan(investor_request, borrower_request)
-    investor_amount = investor_request.amount.dollars
-    borrower_amount = borrower_request.amount.dollars
+    investor_request.reload
+    borrower_request.reload
+    investor_amount = investor_request.amount_to_complete
+    borrower_amount = borrower_request.amount_to_complete
     [borrower_amount, investor_amount].min
   end
 
@@ -49,7 +51,7 @@ module DebtsService
         request.debts.each do |debt|
           break if amount_remain == 0
           unless debt.status == 'filled'
-            money_to_refund = debt.stats[:money_to_refund]
+            money_to_refund = debt.stats[:money_remain_to_refund]
             amount_to_pay = [money_to_refund, amount_remain].min
             amount_remain -= amount_to_pay
             transaction = ArdisTransaction.create(borrower: debt.borrower_request.account,
@@ -59,6 +61,7 @@ module DebtsService
             if transaction.valid?
               transaction.save
               debt.ardis_transactions << transaction
+              debt.save
             end
           end
         end
