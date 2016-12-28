@@ -46,8 +46,7 @@ module RotService
     # profile part
     user_profile = user.profile
     profile_part = user_profile.attributes.each_pair.map{|arr| arr.try(:second).present? ? 1 : 0}.
-      reduce(:+) / user_profile.attributes.count.to_f
-
+      reduce(:+) / (user_profile.attributes.count.to_f - 1) # minus one cause of user_id)
     # ardis credit activity part
     activity_part = 0
     # loop through requests and get from debts histories statuses
@@ -63,6 +62,8 @@ module RotService
         end
       end
     end
+
+    activity_part = [[0, activity_part].max, 1.0].min
 
     puts credit_history_part
     puts profile_part
