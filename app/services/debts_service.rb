@@ -68,4 +68,8 @@ module DebtsService
       end
   end
 
+  def self.update_statuses
+    Debt.all.map(&:try_update_status)
+  end
+
 end

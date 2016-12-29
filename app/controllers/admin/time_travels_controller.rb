@@ -13,6 +13,9 @@ class Admin::TimeTravelsController < Admin::ApplicationController
     unless date < DateTime.now
       Timecop.travel(date)
     end
+    DebtsService.process_investor_requests
+    DebtsService.update_statuses
+    RotService.update_borrowers_scores
 
     redirect_to new_admin_time_travels_path
   end

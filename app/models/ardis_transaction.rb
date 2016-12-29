@@ -71,13 +71,6 @@ class ArdisTransaction < ApplicationRecord
 
   def get_commission
     transaction do
-      ### get from account
-      account = (borrower or investor)
-      commission_amount = amount.amount
-      current_account_score = account.score.amount
-      updated_account_score = current_account_score - commission_amount
-      account.update(score: Money.new(updated_account_score * 100, 'USD'))
-      ### put to system
       system = SystemScore.instance
       current_score = system.score.amount
       updated_score = current_score + amount.amount
@@ -104,16 +97,12 @@ class ArdisTransaction < ApplicationRecord
   def withdrawal
     transaction do
       account = (borrower or investor)
-      amount_to_refill = amount.amount * (1 - COMMISSION_PERCENT)
+      amount_to_refill = amount.amount
       commission_amount = amount.amount * COMMISSION_PERCENT
       current_account_score = account.score.amount
       updated_account_score = current_account_score - amount_to_refill
       account.update(score: Money.new(updated_account_score * 100, 'USD'))
-      if borrower
-        ArdisTransaction.create(kind: :commission, amount: commission_amount, borrower: borrower)
-      elsif investor
-        ArdisTransaction.create(kind: :commission, amount: commission_amount, investor: investor)
-      end
+      ArdisTransaction.create(kind: :commission, amount: commission_amount)
     end
   end
 
