@@ -19,7 +19,7 @@ class User < ApplicationRecord
     if account && (account.borrower? || account.investor?)
       30.minutes
     else
-      1.year
+      1000.years
     end
   end
 

@@ -16,7 +16,6 @@ class Admin::TimeTravelsController < Admin::ApplicationController
     DebtsService.process_investor_requests
     DebtsService.update_statuses
     RotService.update_borrowers_scores
-
     redirect_to new_admin_time_travels_path
   end
 
