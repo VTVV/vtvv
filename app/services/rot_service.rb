@@ -1,6 +1,6 @@
 module RotService
 
-  WEIGHT = {credit_history: 0.3, profile_info: 0.3, credit_activity: 0.4}
+  WEIGHT = {credit_history: 0.3, profile_info: 0.2, credit_activity: 0.4, document_part: 0.1}
 
   def self.create_user_score(user)
     '''
@@ -65,11 +65,22 @@ module RotService
 
     activity_part = [[0, activity_part].max, 1.0].min
 
+    # doc part
+    user_documents = Document.where account_id: user_account.id
+    user_documents.each do |d|
+      puts d.status
+    end
+
+    good_part = user_documents.where(status: 'approved').count
+    bad_part = user_documents.where(status: 'rejected').count
+    document_part = good_part + bad_part > 0 ? 1.0 * good_part / (bad_part + good_part) : 0
+
     puts credit_history_part
     puts profile_part
     puts activity_part
+    puts document_part
 
     user_account.credit_score.update(score: WEIGHT[:credit_history] * credit_history_part + WEIGHT[:profile_info] *
-      profile_part + WEIGHT[:credit_activity] * activity_part)
+      profile_part + WEIGHT[:credit_activity] * activity_part + WEIGHT[:document_part] * document_part)
   end
 end
