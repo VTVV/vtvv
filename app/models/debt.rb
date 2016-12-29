@@ -53,7 +53,7 @@ class Debt < ApplicationRecord
   end
 
   def money_to_refund
-    money_borrowed * (1 + borrower_request.credit_percentage + penalty)
+    money_borrowed.where(status: [:active, :overdue]) * (1 + borrower_request.credit_percentage + penalty)
   end
 
   def money_refunded
