@@ -4,6 +4,14 @@
 .row
   = render partial: 'layouts/errors', locals: {errors: @errors}
   .col-md-12
+    p.lead
+      | Credit precentage is 30% if amount is between 50 to 100
+      br
+      | Credit precentage is 20% if amount is between 100 to 500
+      br
+      | Credit precentage is 15% if amount is between 500 to 3000
+      br
+      | Credit precentage is 10% if amount is bigger thant 3000
     = form_for @request, url: borrower_requests_path do |f|
       .row
         .col-md-6.mt-20
