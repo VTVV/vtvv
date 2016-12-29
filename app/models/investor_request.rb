@@ -1,6 +1,6 @@
 class InvestorRequest < ApplicationRecord
 
-  monetize :amount_cents, with_model_currency: :currency, :numericality => {:greater_than_or_equal_to => 5000}
+  monetize :amount_cents, with_model_currency: :currency, :numericality => {:greater_than_or_equal_to => 50}
 
   enum status: [:pending, :active, :completed, :rejected, :overdue]
 
