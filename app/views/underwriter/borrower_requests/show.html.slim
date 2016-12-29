@@ -53,10 +53,12 @@
             = image_tag(d.file.url, class: 'profile-image')
 
 
-    = form_for @borrower_request, url: underwriter_borrower_request_path(@borrower_request) do |f|
-      = f.hidden_field :status, value: :rejected
-      = f.submit 'Reject', class: 'btn btn-warning'
+    - if @borrower_request.pending?
+      = form_for @borrower_request, url: underwriter_borrower_request_path(@borrower_request) do |f|
+        = f.hidden_field :status, value: :rejected
+        = f.submit 'Reject', class: 'btn btn-warning'
 
-    = form_for @borrower_request, url: underwriter_borrower_request_path(@borrower_request) do |f|
-      = f.hidden_field :status, value: :pending
-      = f.submit 'Approve', class: 'btn btn-danger'
+    - if @borrower_request.rejected?
+      = form_for @borrower_request, url: underwriter_borrower_request_path(@borrower_request) do |f|
+        = f.hidden_field :status, value: :pending
+        = f.submit 'Approve', class: 'btn btn-danger'
