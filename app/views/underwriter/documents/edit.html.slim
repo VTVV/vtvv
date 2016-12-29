@@ -26,11 +26,12 @@
         td Document
         td = image_tag(@document.file.url, class: 'profile-image')
 
+    - if @document.submitted? || @document.rejected?
+      = form_for @document, url: underwriter_document_path(@document) do |f|
+        = f.hidden_field :status, value: :approved
+        = f.submit 'Approve', class: 'btn btn-warning'
 
-    = form_for @document, url: underwriter_document_path(@document) do |f|
-      = f.hidden_field :status, value: :approved
-      = f.submit 'Approve', class: 'btn btn-warning'
-
-    = form_for @document, url: underwriter_document_path(@document) do |f|
-      = f.hidden_field :status, value: :rejected
-      = f.submit 'Reject', class: 'btn btn-danger'
+    - if @document.submitted? || @document.approved?
+      = form_for @document, url: underwriter_document_path(@document) do |f|
+        = f.hidden_field :status, value: :rejected
+        = f.submit 'Reject', class: 'btn btn-danger'
