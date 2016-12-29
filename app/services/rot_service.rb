@@ -63,8 +63,6 @@ module RotService
       end
     end
 
-    activity_part = [[0, activity_part].max, 1.0].min
-
     # doc part
     user_documents = Document.where account_id: user_account.id
     user_documents.each do |d|
@@ -80,7 +78,7 @@ module RotService
     puts activity_part
     puts document_part
 
-    user_account.credit_score.update(score: WEIGHT[:credit_history] * credit_history_part + WEIGHT[:profile_info] *
-      profile_part + WEIGHT[:credit_activity] * activity_part + WEIGHT[:document_part] * document_part)
+    user_account.credit_score.update(score: [WEIGHT[:credit_history] * credit_history_part + WEIGHT[:profile_info] *
+      profile_part + WEIGHT[:credit_activity] * activity_part + WEIGHT[:document_part] * document_part, 0].max)
   end
 end
