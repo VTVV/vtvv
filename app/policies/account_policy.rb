@@ -11,6 +11,10 @@ class AccountPolicy < ApplicationPolicy
     is_borrower_or_investor? && user.accounts.count == 2
   end
 
+  def destroy?
+    is_borrower_or_investor?
+  end
+
   def deposit?
     is_borrower_or_investor?
   end

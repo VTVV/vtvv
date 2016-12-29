@@ -1,6 +1,10 @@
 class Borrower::RequestsController < Borrower::ApplicationController
   def index
-    @requests = BorrowerRequest.where(account: current_account)
+    @requests = BorrowerRequest
+                  .where(account: current_account)
+                  .order(created_at: :desc)
+                  .page(params[:page])
+                  .per(7)
   end
 
   def new
@@ -28,6 +32,16 @@ class Borrower::RequestsController < Borrower::ApplicationController
 
   def show
 
+  end
+
+  def destroy
+    @request = BorrowerRequest.find(params[:id])
+    if @request.destroy
+      flash[:success] = 'Your request has been successfully deleted!'
+    else
+      flash[:danger] = 'Sorry, we can\'t delete your request'
+    end
+    redirect_to borrower_requests_path
   end
 
   private

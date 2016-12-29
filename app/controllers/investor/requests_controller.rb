@@ -1,6 +1,10 @@
 class Investor::RequestsController < Investor::ApplicationController
   def index
-    @requests = InvestorRequest.where(account: current_account)
+    @requests = InvestorRequest
+                  .where(account: current_account)
+                  .order(created_at: :desc)
+                  .page(params[:page])
+                  .per(7)
   end
 
   def new
@@ -32,6 +36,16 @@ class Investor::RequestsController < Investor::ApplicationController
 
   def show
 
+  end
+
+  def destroy
+    @request = InvestorRequest.find(params[:id])
+    if @request.destroy
+      flash[:success] = 'Your request has been successfully deleted!'
+    else
+      flash[:danger] = 'Sorry, we can\'t delete your request'
+    end
+    redirect_to investor_requests_path
   end
 
   private
