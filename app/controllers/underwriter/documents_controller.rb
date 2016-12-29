@@ -10,7 +10,8 @@ class Underwriter::DocumentsController < Underwriter::ApplicationController
 
   def update
     @document = Document.find(params[:id])
-    if @document.update_attributes(document_params)
+    if @document.update_attributes(document_params) && RotService.update_user_score(@document.account.user)
+
       redirect_to underwriter_documents_path
     else
       @errors = @document.errors.full_messages
