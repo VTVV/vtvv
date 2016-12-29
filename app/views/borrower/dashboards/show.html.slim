@@ -5,11 +5,11 @@
   .col-xs-offset-1.col-xs-10
     .row
       .col-md-4
-        h3 = "Money borrowed: #{@money_borrowed}$"
+        h3 = "Money borrowed: #{@money_borrowed.round(2)}$"
       .col-md-4
-        h3 = "Money refunded: #{@money_refunded}$"
+        h3 = "Money refunded: #{@money_refunded.round(2)}$"
       .col-md-4
-        h3 = "Money to refund: #{@money_to_refund}$"
+        h3 = "Money to refund: #{@money_to_refund.round(2)}$"
     hr
     .row
       .col.md-10

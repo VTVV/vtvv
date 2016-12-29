@@ -26,7 +26,7 @@ class ArdisTransaction < ApplicationRecord
       check_score_for_refund
     when 'commission'
       get_commission
-  end
+    end
   end
 
   def check_score_for_withdrawal
@@ -70,10 +70,12 @@ class ArdisTransaction < ApplicationRecord
   end
 
   def get_commission
-    system = SystemScore.instance
-    current_score = system.score.amount
-    updated_score = current_score + amount.amount
-    SystemScore.instance.update(score: Money.new(updated_score * 100, 'USD'))
+    transaction do
+      system = SystemScore.instance
+      current_score = system.score.amount
+      updated_score = current_score + amount.amount
+      SystemScore.instance.update(score: Money.new(updated_score * 100, 'USD'))
+    end
   end
 
   def refill
@@ -84,14 +86,18 @@ class ArdisTransaction < ApplicationRecord
       current_account_score = account.score.amount
       updated_account_score = current_account_score + amount_to_refill
       account.update(score: Money.new(updated_account_score * 100, 'USD'))
-      ArdisTransaction.create(kind: :commission, amount: commission_amount)
+      if borrower
+        ArdisTransaction.create(kind: :commission, amount: commission_amount, borrower: borrower)
+      elsif investor
+        ArdisTransaction.create(kind: :commission, amount: commission_amount, investor: investor)
+      end
     end
   end
 
   def withdrawal
     transaction do
       account = (borrower or investor)
-      amount_to_refill = amount.amount * (1 - COMMISSION_PERCENT)
+      amount_to_refill = amount.amount
       commission_amount = amount.amount * COMMISSION_PERCENT
       current_account_score = account.score.amount
       updated_account_score = current_account_score - amount_to_refill

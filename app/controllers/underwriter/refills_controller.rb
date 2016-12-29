@@ -12,7 +12,7 @@ class Underwriter::RefillsController < Underwriter::ApplicationController
   end
 
   def borrower_refill
-    ArdisTransaction.create(borrower_id: params[:id].to_i,
+    ArdisTransaction.create(borrower: Account.find(params[:id].to_i),
                             kind: :refill,
                             amount: params[:borrower][:amount].to_f)
     flash[:success] = 'Refill is successfully done.'
@@ -20,7 +20,7 @@ class Underwriter::RefillsController < Underwriter::ApplicationController
   end
 
   def investor_refill
-    ArdisTransaction.create(investor_id: params[:id].to_i,
+    ArdisTransaction.create(investor: Account.find(params[:id].to_i),
                             kind: :refill,
                             amount: params[:investor][:amount].to_f)
     flash[:success] = 'Refill is successfully done.'
