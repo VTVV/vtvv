@@ -20,3 +20,8 @@
 //= require dataTables.bootstrap.min
 //= require dataTables.responsive
 //= require_tree .
+
+
+$('button').click(function(e) {
+  e.target.disabled=true;
+});
