@@ -12,6 +12,7 @@ class InvestorRequest < ApplicationRecord
   validates :due_date, presence: true
   validate :validate_due_date
   validate :check_account_balance
+  validate :from_bigger_than_due
 
   after_save :check_status
 
@@ -63,6 +64,12 @@ class InvestorRequest < ApplicationRecord
   def check_account_balance
     if account.score.dollars < amount.dollars
       errors.add(:amount, "is bigger than your account score.")
+    end
+  end
+
+  def from_bigger_than_due
+    if from_rate >= to_rate
+      errors.add(:from, "Rate can't be more than To Rate.")
     end
   end
 end

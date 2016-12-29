@@ -23,4 +23,7 @@
               = u.created_at
             td
               = form_for u, url: ban_admin_dashboard_path(u), method: :post do |f|
-                = f.submit u.allowed_to_log_in? ? 'Ban' : 'Unban', class: 'btn btn-danger'
+                - if account.admin? || account.borrower_requests.where(status: [:active, :pending, :overdue]).any? || account.investor_requests.where(status: [:active, :pending, :overdue]).any?
+                  = f.submit u.allowed_to_log_in? ? 'Ban' : 'Unban', class: 'btn btn-danger', disabled: true
+                - else
+                  = f.submit u.allowed_to_log_in? ? 'Ban' : 'Unban', class: 'btn btn-danger'
