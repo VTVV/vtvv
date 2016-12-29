@@ -1,47 +1,59 @@
 = form_for current_profile, url: path, method: method do |f|
   .row
+    .col-xs-2
     .col-xs-4
-    .col-xs-8
-      .row.top-margin-20
-        .col-xs-4
-          = f.text_field :first_name, class: 'form-control', placeholder: 'First Name', minlength: 5, maxlength: 50, required: true
-      .row.top-margin-20
-        .col-xs-4
-          = f.text_field :last_name, class: 'form-control', placeholder: 'Last Name', minlength: 5, maxlength: 50, required: true
-      .row.top-margin-20
-        .col-xs-4
-          = f.collection_select :sex, [['Female', 0], ['Male', 1]], :last, :first, {}, class: 'form-control'
-      .row.top-margin-20
-        .col-xs-4
-          = f.number_field :home_phone, class: 'form-control', placeholder: 'Home Phone', maxlength: 10
-      .row.top-margin-20
-        .col-xs-4
-          = f.number_field :mobile_phone, class: 'form-control', placeholder: 'Mobile Phone', maxlength: 15
-      .row.top-margin-20
-        .col-xs-4
-          = f.text_field :company_name, class: 'form-control', placeholder: 'Company Name', maxlength: 50
-      .row.top-margin-20
-        .col-xs-4
+        .row.mt-20
+          .col-xs-12
+            span.lead First Name
+            = f.text_field :first_name, class: 'form-control', placeholder: 'First Name', minlength: 1, maxlength: 50, required: true
+        .row.mt-20
+          .col-xs-12
+            span.lead Last Name
+            = f.text_field :last_name, class: 'form-control', placeholder: 'Last Name', minlength: 1, maxlength: 50, required: true
+        .row.mt-20
+          .col-xs-12
+            span.lead Sex
+            = f.collection_select :sex, [['Female', 0], ['Male', 1]], :last, :first, {}, class: 'form-control'
+        .row.mt-20
+          .col-xs-12
+            span.lead Home Phone
+            = f.number_field :home_phone, class: 'form-control', placeholder: 'Home Phone', maxlength: 10
+        .row.mt-20
+          .col-xs-12
+            span.lead Mobile Phone
+            = f.number_field :mobile_phone, class: 'form-control', placeholder: 'Mobile Phone', maxlength: 15
+        .row.mt-20
+          .col-xs-12
+            span.lead Company Name
+            = f.text_field :company_name, class: 'form-control', placeholder: 'Company Name', maxlength: 50
+    .col-xs-4
+      .row.mt-20
+        .col-xs-12
+          span.lead Job Position
           = f.text_field :job_position, class: 'form-control', placeholder: 'Job Position', maxlength: 50
-      .row.top-margin-20
-        .col-xs-4
+      .row.mt-20
+        .col-xs-12
+          span.lead Nationality
           = f.text_field :nationality, class: 'form-control', placeholder: 'Nationality', maxlength: 50
-      .row.top-margin-20
-        .col-xs-4
+      .row.mt-20
+        .col-xs-12
+          span.lead Credit Number
           = f.number_field :credit_number, class: 'form-control', placeholder: 'Credit Number', required: true
-      .row.top-margin-20
-        .col-xs-4
+      .row.mt-20
+        .col-xs-12
+          span.lead Salary
           = f.number_field :salary, class: 'form-control', placeholder: 'Salary', maxlength: 10
-      .row.top-margin-20
-        .col-xs-4
+      .row.mt-20
+        .col-xs-12
+          span.lead Family Status
           = f.collection_select :family_status, [['Single', 0], ['Married', 1], ['Divorced', 2]], :last, :first, {}, class: 'form-control', placeholder: 'Credit Number'
-      .row.top-margin-20
-        .col-xs-4
-          = f.date_select :birth_date , {}, class: 'form-control'
-      /.row.top-margin-20
-        .col-xs-4
-          = f.label :passport, 'Passport Scan'
-          = f.file_field :passport, class: 'form-control'
-      .row.top-margin-20
+      .row.mt-20
+        .col-xs-12
+          span.lead Birth Date
+          = f.date_field :birth_date , class: 'form-control'
+  .row
+    .col-xs-12
+      .row.mt-20
+        .col-xs-2
         .col-xs-6
-          = f.submit submit_label, class: 'btn btn-success'
+          = f.submit submit_label, class: 'btn btn-default'

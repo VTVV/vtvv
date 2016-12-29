@@ -7,15 +7,23 @@
     = form_for @request, url: investor_requests_path do |f|
       .row
         .col-md-6.mt-20
+          span.lead
+            | Amount
           = f.number_field :amount, placeholder: 'Amount', class: 'form-control'
       .row
         .col-md-6.mt-20
+          span.lead
+            | From Rate
           = f.number_field :from_rate, placeholder: 'From Rate', class: 'form-control'
       .row
         .col-md-6.mt-20
+          span.lead
+            | To Rate
           = f.number_field :to_rate, placeholder: 'To Rate', class: 'form-control'
       .row
         .col-md-6.mt-20
+          span.lead
+            | Due Date
           = f.date_field :due_date, class: 'form-control'
       .row
         .col-md-6.mt-20

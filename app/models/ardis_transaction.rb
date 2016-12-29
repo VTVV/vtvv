@@ -26,12 +26,19 @@ class ArdisTransaction < ApplicationRecord
       check_score_for_refund
     when 'commission'
       get_commission
-    end
+  end
   end
 
   def check_score_for_withdrawal
-    if borrower.score.dollars < amount.dollars
-      errors.add(:amount, 'can not be less than account score.')
+    if borrower
+      if borrower.score.dollars < amount.dollars
+        errors.add(:amount, 'can not be less than account score.')
+      end
+    end
+    if investor
+      if investor.score.dollars < amount.dollars
+        errors.add(:amount, 'can not be less than account score.')
+      end
     end
   end
 

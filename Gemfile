@@ -45,6 +45,7 @@ gem 'mini_magick'
 gem 'carrierwave'
 gem 'pundit'
 gem 'whenever'
+gem 'kaminari'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

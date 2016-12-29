@@ -22,7 +22,7 @@ set :environment, "development"
 
 set :output, "~/Study/cron.log"
 
-every 2.hour do
+every 1.minute do
   runner 'DebtsService.process_investor_requests'
 end
 

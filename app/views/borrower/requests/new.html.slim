@@ -7,9 +7,13 @@
     = form_for @request, url: borrower_requests_path do |f|
       .row
         .col-md-6.mt-20
+          span.lead
+            | Amount
           = f.number_field :amount, placeholder: 'Amount', class: 'form-control'
       .row
         .col-md-6.mt-20
+          span.lead
+            | Duration(weeks)
           = f.number_field :duration, placeholder: 'Duration in weeks', class: 'form-control', step: 1, required: true
       .row
         .col-md-6.mt-20

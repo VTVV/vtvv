@@ -49,7 +49,18 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
               = link_to 'Time Travel', new_admin_time_travels_path
             li
               = link_to 'Invite new user', new_user_invitation_path
-
+            li
+              a href="#"
+                i.fa.fa-bar-chart-o.fa-fw
+                | Statistics
+                span.fa.arrow
+              ul.nav.nav-second-level
+                li
+                  = link_to 'Common', admin_stats_path
+                li
+                  = link_to 'Borrowers', admin_borrowers_stats_path
+                li
+                  = link_to 'Investors', admin_investors_stats_path
           - if current_account and current_account.borrower?
             li
               a href="#"

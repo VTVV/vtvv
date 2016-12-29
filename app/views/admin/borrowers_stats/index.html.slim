@@ -1,0 +1,75 @@
+.row
+  .col-lg-12
+    h1.page-header Borrowers Statistics
+= form_for :stats, url: admin_borrowers_stats_path, method: :get do |f|
+  .row
+    .col-md-12
+      .row
+        .col-md-12
+          .row
+            .col-md-2
+              .row
+                .col-md-12
+                  span.lead
+                    | Borrowers
+              .row
+                .col-md-12
+                  span.lead
+                    = Account.where(account_type: :borrower).count
+            .col-md-2
+              .row
+                .col-md-12
+                  span.lead
+                    | Requests
+              .row
+                .col-md-12
+                  span.lead
+                    = BorrowerRequest.count
+            .col-md-2
+              .row
+                .col-md-12
+                  span.lead
+                    | Active
+              .row
+                .col-md-12
+                  span.lead
+                    = BorrowerRequest.where(status: :active).count
+            .col-md-2
+              .row
+                .col-md-12
+                  span.lead
+                    | Pending
+              .row
+                .col-md-12
+                  span.lead
+                    = BorrowerRequest.where(status: :pending).count
+            .col-md-3
+              .row
+                .col-md-12
+                  span.lead
+                    | Closed
+              .row
+                .col-md-12
+                  span.lead
+                    = BorrowerRequest.where(status: :completed).count
+      hr
+  .row
+    .col-md-10
+      table.table.table-bordered
+        thead
+          th.lead  Email
+          th.lead  Trust Score&nbsp;(%)
+          th.lead  Requests
+          th.lead  Active
+          th.lead  Action
+        - @borrowers.each do |borrower|
+          tr
+            td  = borrower.user.email
+            td  = borrower.credit_score.score.round(2) * 100
+            td  = borrower.borrower_requests.count
+            td  = borrower.borrower_requests.where(status: :active).count
+            td  = link_to 'Personal stats', admin_borrowers_stat_path(borrower), class: 'btn btn-default'
+
+  .row
+    .col-md-2
+      = paginate @borrowers

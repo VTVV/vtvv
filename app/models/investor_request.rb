@@ -2,7 +2,7 @@ class InvestorRequest < ApplicationRecord
 
   monetize :amount_cents, with_model_currency: :currency, :numericality => {:greater_than_or_equal_to => 0}
 
-  enum status: [:pending, :active, :completed, :rejected]
+  enum status: [:pending, :active, :completed, :rejected, :overdue]
 
   belongs_to :account
   has_many :debts
@@ -11,6 +11,8 @@ class InvestorRequest < ApplicationRecord
   validates :to_rate, presence: true, numericality: {greater_than: 0, less_than_or_equal_to: 100}
   validates :due_date, presence: true
   validate :validate_due_date
+  validate :check_account_balance
+  validate :from_bigger_than_due
 
   after_save :check_status
 
@@ -56,6 +58,18 @@ class InvestorRequest < ApplicationRecord
       if (due_date - DateTime.now) < 1.month
         errors.add(:due_date, "should be later than 1 month.")
       end
+    end
+  end
+
+  def check_account_balance
+    if account.score.dollars < amount.dollars
+      errors.add(:amount, "is bigger than your account score.")
+    end
+  end
+
+  def from_bigger_than_due
+    if from_rate >= to_rate
+      errors.add(:from, "Rate can't be more than To Rate.")
     end
   end
 end
