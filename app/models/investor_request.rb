@@ -54,9 +54,11 @@ class InvestorRequest < ApplicationRecord
   end
 
   def validate_due_date
-    if due_date
-      if (due_date - DateTime.now) < 1.month
-        errors.add(:due_date, "should be later than 1 month.")
+    unless persisted?
+      if due_date
+        if (due_date - DateTime.now) < 1.month
+          errors.add(:due_date, "should be later than 1 month.")
+        end
       end
     end
   end

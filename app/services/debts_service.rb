@@ -44,7 +44,7 @@ module DebtsService
     amount_remain = amount
     account
       .borrower_requests
-      .where(status: :active)
+      .where(status: [:active, :overdue])
       .order(created_at: :asc)
       .each do |request|
         break if amount_remain == 0
