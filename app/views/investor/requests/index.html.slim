@@ -33,7 +33,7 @@
               td = request.due_date
               td = request.created_at
               td
-                - if request.status == 'pending'
+                - if request.status == 'pending' && request.amount.dollars == request.amount_to_complete
                   = link_to 'Destroy', investor_request_path(request), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger'
                 - else
                   = link_to 'Destroy', '#', disabled: true, class: 'btn btn-danger'
