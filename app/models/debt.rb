@@ -28,7 +28,9 @@ class Debt < ApplicationRecord
       puts weeks_difference
       puts borrower_request.duration
       if weeks_difference - borrower_request.duration >= 0
-        update(status: Debt.statuses[:overdue])
+        unless status == 'overdue'
+          update(status: Debt.statuses[:overdue])
+        end
       end
       if current_stats[:money_to_refund] <= current_stats[:money_refunded]
         update(status: Debt.statuses[:closed])
