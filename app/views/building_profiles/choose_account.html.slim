@@ -6,14 +6,18 @@
     .col-xs-10
       .row
         .col-xs-1
-          span Borrower
-        .col-xs-4
+          span.lead Borrower
+        .col-xs-1
+        .col-xs-4.lead
           = f.radio_button :account_type, Account.account_types[:borrower], checked: true
+      hr
       .row
         .col-xs-1
-          span Investor
-        .col-xs-4
+          span.lead Investor
+        .col-xs-1
+        .col-xs-4.lead
           = f.radio_button :account_type, Account.account_types[:investor]
-      .row.form-group
+      hr
+      .row.form-group.mt-20
         .col-xs-6
-          = f.submit 'Next Step', class: 'btn btn-success'
+          = f.submit 'Next Step', class: 'btn btn-default'
