@@ -70,10 +70,19 @@ class ArdisTransaction < ApplicationRecord
   end
 
   def get_commission
-    system = SystemScore.instance
-    current_score = system.score.amount
-    updated_score = current_score + amount.amount
-    SystemScore.instance.update(score: Money.new(updated_score * 100, 'USD'))
+    transaction do
+      ### get from account
+      account = (borrower or investor)
+      commission_amount = amount.amount
+      current_account_score = account.score.amount
+      updated_account_score = current_account_score - commission_amount
+      account.update(score: Money.new(updated_account_score * 100, 'USD'))
+      ### put to system
+      system = SystemScore.instance
+      current_score = system.score.amount
+      updated_score = current_score + amount.amount
+      SystemScore.instance.update(score: Money.new(updated_score * 100, 'USD'))
+    end
   end
 
   def refill
@@ -96,7 +105,11 @@ class ArdisTransaction < ApplicationRecord
       current_account_score = account.score.amount
       updated_account_score = current_account_score - amount_to_refill
       account.update(score: Money.new(updated_account_score * 100, 'USD'))
-      ArdisTransaction.create(kind: :commission, amount: commission_amount)
+      if borrower
+        ArdisTransaction.create(kind: :commission, amount: commission_amount, borrower: borrower)
+      elsif investor
+        ArdisTransaction.create(kind: :commission, amount: commission_amount, investor: investor)
+      end
     end
   end
 
