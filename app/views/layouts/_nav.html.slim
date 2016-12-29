@@ -43,7 +43,7 @@ nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bot
           - if current_account
             li
               = link_to self.send("#{current_account.account_type}_dashboard_path") do
-                i.fa.fa-dashboard.fa-fw
+                i.fa.fa-home.fa-fw
                 | Dashboard
           - if current_account and current_account.admin?
             li
