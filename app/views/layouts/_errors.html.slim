@@ -1,4 +1,6 @@
 - if errors
   .col-md-12
-    - errors.each do |error|
-      h3.red.lead = error
+    .alert.alert-danger
+      - errors.each do |error|
+        = error
+        br
