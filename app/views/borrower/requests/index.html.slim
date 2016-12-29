@@ -11,6 +11,7 @@
           th Status
           th Sent Date
           th Duration(weeks)
+          th Action
       tbody
         - if @requests.any?
           - @requests.each do |request|
@@ -25,5 +26,12 @@
                 span.label.label-info = request.status
               td = request.created_at
               td = request.duration
+              td
+                - if request.status == 'pending'
+                  = link_to 'Destroy', borrower_request_path(request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
+                - else
+                  = link_to 'Destroy', '#', disabled: true, class: 'btn btn-danger'
         - else
           h1 No requests yet.
+
+    = paginate @requests

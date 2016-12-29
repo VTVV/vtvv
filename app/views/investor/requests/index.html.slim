@@ -14,6 +14,7 @@
           th Status
           th Due Date
           th Sent Date
+          th Action
         - if @requests.any?
           - @requests.each do |request|
             tr.odd.gradeX
@@ -31,5 +32,12 @@
                 span.label.label-info = request.status
               td = request.due_date
               td = request.created_at
+              td
+                - if request.status == 'pending'
+                  = link_to 'Destroy', investor_request_path(request), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger'
+                - else
+                  = link_to 'Destroy', '#', disabled: true, class: 'btn btn-danger'
         - else
           h1 No requests yet.
+
+    = paginate @requests
