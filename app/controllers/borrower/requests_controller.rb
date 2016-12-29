@@ -4,7 +4,13 @@ class Borrower::RequestsController < Borrower::ApplicationController
   end
 
   def new
-    @request = BorrowerRequest.new
+    if current_user.confirmed?
+      @request = BorrowerRequest.new
+    else
+      flash[:alert] = 'In order to create requests please confirm your account.'
+      redirect_to borrower_dashboard_path
+    end
+
   end
 
   def create

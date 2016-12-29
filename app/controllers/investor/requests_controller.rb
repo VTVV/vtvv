@@ -4,19 +4,29 @@ class Investor::RequestsController < Investor::ApplicationController
   end
 
   def new
-    @request = InvestorRequest.new
+    if current_user.confirmed?
+      @request = InvestorRequest.new
+    else
+      flash[:alert] = 'In order to create requests please confirm your account.'
+      redirect_to investor_dashboard_path
+    end
   end
 
   def create
-    @request = InvestorRequest.new request_params
-    @request.status = InvestorRequest.statuses[:pending]
-    @request.account = current_account
-    if @request.save
-      flash[:success] = 'The request has been successfully sent!'
-      redirect_to investor_requests_path
+    if current_user.confirmed?
+      @request = InvestorRequest.new request_params
+      @request.status = InvestorRequest.statuses[:pending]
+      @request.account = current_account
+      if @request.save
+        flash[:success] = 'The request has been successfully sent!'
+        redirect_to investor_requests_path
+      else
+        @errors = @request.errors.full_messages
+        render 'new'
+      end
     else
-      @errors = @request.errors.full_messages
-      render 'new'
+      flash[:alert] = 'In order to create requests please confirm your account.'
+      redirect_to investor_dashboard_path
     end
   end
 
