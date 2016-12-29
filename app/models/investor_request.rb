@@ -68,8 +68,10 @@ class InvestorRequest < ApplicationRecord
   end
 
   def from_bigger_than_due
-    if from_rate >= to_rate
-      errors.add(:from, "Rate can't be more than To Rate.")
+    if from_rate && to_rate
+      if from_rate >= to_rate
+        errors.add(:from, "Rate can't be more than To Rate.")
+      end
     end
   end
 end
